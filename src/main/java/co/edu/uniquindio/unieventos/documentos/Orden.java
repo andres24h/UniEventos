@@ -1,0 +1,32 @@
+package co.edu.uniquindio.unieventos.documentos;
+
+import lombok.*;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Document("ordenes")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+public class Orden implements Serializable {
+
+    @Id
+    @EqualsAndHashCode.Include
+    private String id;
+
+    private ObjectId idCliente;
+    private ObjectId idCupon;
+    private String codigoPasarela;
+    private Pago pago;
+    private float total;
+    private LocalDateTime fecha;
+    private List<DetalleOrden> items;
+}
