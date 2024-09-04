@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unieventos.servicios;
+package co.edu.uniquindio.unieventos.servicios.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 

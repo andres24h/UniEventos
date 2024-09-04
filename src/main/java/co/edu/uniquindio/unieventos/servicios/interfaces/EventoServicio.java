@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unieventos.servicios;
+package co.edu.uniquindio.unieventos.servicios.interfaces;
 
 import co.edu.uniquindio.unieventos.dto.evento.*;
 
@@ -15,6 +15,8 @@ public interface EventoServicio {
     InformacionEventoDTO obtenerInformacionEvento(String id) throws Exception;
 
     List<ItemEventoDTO> listarEventos();
+
+    boolean disponiblidad(DisponibilidadEventoDTO disponibilidadEventoDTO);
 
     List<ItemEventoDTO> filtrarEventos(FiltroEventoDTO filtroEventoDTO);
 }
