@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unieventos.documentos;
 
+import jakarta.annotation.PostConstruct;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -13,15 +14,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString
-public class Cuenta implements Serializable {
+public class Cuenta {
 
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
-    private ObjectId idUsuario;
+    private Usuario usuario;
     private String email;
     private String password;
     private EstadoCuenta estado;
@@ -29,5 +29,7 @@ public class Cuenta implements Serializable {
     private CodigoValidacion codigoValidacionRegistro;
     private CodigoValidacion codigoValidacionPassword;
     private LocalDateTime fechaRegistro;
+
+
 
 }

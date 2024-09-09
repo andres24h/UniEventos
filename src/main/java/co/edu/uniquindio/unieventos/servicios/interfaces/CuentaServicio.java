@@ -1,13 +1,16 @@
 package co.edu.uniquindio.unieventos.servicios.interfaces;
 
 
+import co.edu.uniquindio.unieventos.documentos.CodigoValidacion;
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
 
 public interface CuentaServicio {
 
     String crearCuenta(CrearCuentaDTO cuenta) throws Exception;
 
-    boolean activarCuenta(String codigo);
+    boolean activarCuenta(ActivarCuentaDTO activarCuentaDTO) throws Exception;
+
+    String generarCodigo();
 
     String editarCuenta(EditarCuentaDTO cuenta) throws Exception;
 

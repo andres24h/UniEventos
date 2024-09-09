@@ -15,21 +15,11 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Usuario  implements Serializable {
-
     @Id
     @EqualsAndHashCode.Include
-    private String id;
-
-    private String nombre;
     private String cedula;
+    private String nombre;
     private String direccion;
     private List<String> telefonos;
 
-    @Builder
-    public Usuario(String nombre, String cedula, String direccion, List<String> telefonos) {
-        this.nombre = nombre;
-        this.cedula = cedula;
-        this.direccion = direccion;
-        this.telefonos = telefonos;
-    }
 }
