@@ -79,11 +79,8 @@ public class CuentaServicioTest {
 
     @Test
     public void eliminarCuentaTest(){
-
-
         //Se define el id de la cuenta del usuario a eliminar, este id está en el dataset.js
         String idCuenta = "66a2a9aaa8620e3c1c5437be";
-
 
         //Se elimina la cuenta del usuario con el id definido
         assertDoesNotThrow(() -> cuentaServicio.eliminarCuenta(idCuenta) );

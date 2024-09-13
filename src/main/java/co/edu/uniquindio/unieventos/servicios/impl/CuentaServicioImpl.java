@@ -18,8 +18,8 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class CuentaServicioImpl implements CuentaServicio {
-
     private final CuentaRepo cuentaRepo;
+    private String ejemplo;
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
