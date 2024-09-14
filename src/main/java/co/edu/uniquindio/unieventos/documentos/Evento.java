@@ -20,7 +20,7 @@ public class Evento implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
+    private String idUsuario;
     private String nombre;
     private String descripcion;
     private String direccion;
@@ -31,5 +31,4 @@ public class Evento implements Serializable {
     private TipoEvento tipo;
     private LocalDateTime fecha;
     private List<Localidad> localidades;
-
 }

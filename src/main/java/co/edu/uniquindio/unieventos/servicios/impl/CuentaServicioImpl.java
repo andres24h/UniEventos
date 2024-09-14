@@ -40,13 +40,12 @@ public class CuentaServicioImpl implements CuentaServicio {
         nuevaCuenta.setFechaRegistro(LocalDateTime.now());
         nuevaCuenta.setCodigoValidacionRegistro(new CodigoValidacion(generarCodigo(), LocalDateTime.now()));
         nuevaCuenta.setUsuario(new Usuario(
-                cuenta.cedula(),
                 cuenta.nombre(),
                 cuenta.direccion(),
                 cuenta.telefonos()
         ));
         Cuenta cuentaCreada = cuentaRepo.save(nuevaCuenta);
-        return cuentaCreada.getUsuario().getCedula();
+        return cuentaCreada.getId();
     }
 
     @Override
@@ -120,7 +119,7 @@ public class CuentaServicioImpl implements CuentaServicio {
     public InformacionCuentaDTO obtenerInformacionCuenta(String id) throws Exception {
         Cuenta cuenta = obtenerCuenta(id);
         return new InformacionCuentaDTO(
-                cuenta.getUsuario().getCedula(),
+                cuenta.getId(),
                 cuenta.getUsuario().getNombre(),
                 cuenta.getUsuario().getTelefonos(),
                 cuenta.getUsuario().getDireccion(),
