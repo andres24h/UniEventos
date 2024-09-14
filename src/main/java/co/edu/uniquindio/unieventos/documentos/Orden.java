@@ -21,7 +21,6 @@ public class Orden implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
     private ObjectId idCliente;
     private ObjectId idCupon;
     private String codigoPasarela;

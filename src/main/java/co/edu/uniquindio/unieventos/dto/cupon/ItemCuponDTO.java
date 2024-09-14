@@ -4,7 +4,7 @@ import co.edu.uniquindio.unieventos.documentos.TipoCupon;
 
 import java.time.LocalDate;
 
-public record CuponDTO(
+public record ItemCuponDTO(
         String id,
         String codigo,
         String nombre,

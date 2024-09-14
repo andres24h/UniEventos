@@ -22,8 +22,7 @@ public class Carrito implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
-    private ObjectId idUsuario;
+    private String idUsuario;
     private LocalDateTime fecha;
     private List<DetalleCarrito> items;
 }

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class EventoServicioImpl {
-
     EventoRepo eventoRepo;
 
 
@@ -16,6 +15,7 @@ public class EventoServicioImpl {
         if(existeNombre(crearEventoDTO.nombre())){
             throw new Exception("El nombre ya existe elija otro nombre");
         }
+
 
     }
 

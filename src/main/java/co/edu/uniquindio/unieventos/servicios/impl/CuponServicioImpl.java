@@ -1,17 +1,20 @@
 package co.edu.uniquindio.unieventos.servicios.impl;
 
-import co.edu.uniquindio.unieventos.dto.cupon.CuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.ActualizarCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.ItemCuponDTO;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
 
 public class CuponServicioImpl implements CuponServicio {
+
     @Override
-    public String crearCupones(CuponDTO cuponDTO) {
+    public String crearCupones(CrearCuponDTO cuponDTO) {
         return "";
     }
 
     @Override
-    public CuponDTO actualizarCupon(CuponDTO cuponDTO) {
-        return null;
+    public String actualizarCupon(ActualizarCuponDTO cuponDTO) {
+        return "";
     }
 
     @Override
@@ -25,7 +28,12 @@ public class CuponServicioImpl implements CuponServicio {
     }
 
     @Override
-    public CuponDTO redimirCupon(String idCupon, String idCliente) {
+    public String redimirCupon(String idCupon, String idCliente) {
+        return null;
+    }
+
+    @Override
+    public ItemCuponDTO listarCupones(String idCupon, String idCliente) {
         return null;
     }
 }
