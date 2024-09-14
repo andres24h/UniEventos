@@ -1,8 +1,10 @@
 package co.edu.uniquindio.unieventos.dto.evento;
 
+import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
 import co.edu.uniquindio.unieventos.documentos.Localidad;
 import co.edu.uniquindio.unieventos.documentos.TipoEvento;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record CrearEventoDTO(
@@ -12,7 +14,10 @@ public record CrearEventoDTO(
         String direccion,
         String ciudad,
         String imagenPortada,
-        String ImagenLocalidades,
+        String imagenLocalidades,
         TipoEvento tipo,
-        List<Localidad> localidades ) {
+        List<Localidad> localidades,
+        EstadoEvento estado,
+        LocalDateTime fecha
+        ) {
 }
