@@ -23,6 +23,7 @@ public class Evento implements Serializable {
     private String idUsuario;
     private String nombre;
     private String descripcion;
+    private Ubicacion Ubicacion;
     private String direccion;
     private String ciudad;
     private String imagenPortada;
