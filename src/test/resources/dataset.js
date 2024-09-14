@@ -1,4 +1,4 @@
-db = connect( 'mongodb://localhost:27017/proyecto' );
+db = connect( 'mongodb://localhost:27017/unieventos' );
 
 db.cuentas.insertMany([
     {
@@ -14,7 +14,7 @@ db.cuentas.insertMany([
             direccion: 'Calle 12 # 12-12',
         },
         fechaRegistro: ISODate('2024-07-25T21:41:57.849Z'),
-        _class: 'co.edu.uniquindio.proyecto.modelo.documentos.Cuenta'
+        _class: 'co.edu.uniquindio.unieventos.documentos.Cuenta'
     },
     {
         _id: ObjectId('66a2c14dd9219911cd34f2c0'),
@@ -29,7 +29,7 @@ db.cuentas.insertMany([
             direccion: 'Calle ABC # 12-12',
         },
         fechaRegistro: ISODate('2024-08-02T21:41:57.849Z'),
-        _class: 'co.edu.uniquindio.proyecto.modelo.documentos.Cuenta'
+        _class: 'co.edu.uniquindio.unieventos.documentos.Cuenta'
     },
     {
         _id: ObjectId('66a2c1517f3b340441ffdeb0'),
@@ -41,7 +41,7 @@ db.cuentas.insertMany([
             nombre: 'Admin 1'
         },
         fechaRegistro: ISODate('2024-08-25T21:41:57.849Z'),
-        _class: 'co.edu.uniquindio.proyecto.modelo.documentos.Cuenta'
+        _class: 'co.edu.uniquindio.unieventos.documentos.Cuenta'
     },
 ]);
 
