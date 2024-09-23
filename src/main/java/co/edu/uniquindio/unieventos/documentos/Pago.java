@@ -18,7 +18,7 @@ public class Pago implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private String id;
+    private String codigo;
     private String moneda;
     private String tipoPago;
     private String estado;

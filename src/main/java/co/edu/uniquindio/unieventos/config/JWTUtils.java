@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unieventos.utils;
+package co.edu.uniquindio.unieventos.config;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,6 @@ import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 @Component
 public class JWTUtils {

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document("carrito")
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,12 +17,11 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 
-public class Carrito implements Serializable {
+public class Carrito {
 
     @Id
     @EqualsAndHashCode.Include
-    private String id;
-    private String idUsuario;
+    private String idCarrito;
     private LocalDateTime fecha;
     private List<DetalleCarrito> items;
 }

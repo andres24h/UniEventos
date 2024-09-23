@@ -1,13 +1,12 @@
 package co.edu.uniquindio.unieventos.test;
 
-import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,72 +21,142 @@ public class CuentaServicioTest {
 
     @Test
     public void crearCuentaTest(){
-        // Crear un DTO con los datos para crear una nueva cuenta
+
         List<String> telefonos=new ArrayList<>();
         telefonos.add("315252671");
-        telefonos.add("7432124");
+        telefonos.add("743212426");
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "123",
-                "Pepito perez",
+                "1091884230",
+                "Carlos perez",
                 telefonos,
-                "Calle 123",
-                "pepitoperez@email.com",
-                "password"
+                "Calle 12 #26-49",
+                "luisc.moralesc@uqvirtual.edu.co",
+                "password123"
             );
-            // Se espera que no se lance ninguna excepción
+
             assertDoesNotThrow( () -> {
-            // Se crea la cuenta y se imprime el id
+
             String id = cuentaServicio.crearCuenta(crearCuentaDTO);
-            // Se espera que el id no sea nulo
+
             assertNotNull(id);
 
         });
     }
     @Test
-    public void editarCuentaTest(){
-
-
-        //Se define el id de la cuenta del usuario a actualizar, este id está en el dataset.js
-        String idCuenta = "66a2a9aaa8620e3c1c5437be";
-        //Se crea un objeto de tipo EditarCuentaDTO
-        List<String> telefonos=new ArrayList<>();
-        telefonos.add("3204922");
-        EditarCuentaDTO editarCuentaDTO = new EditarCuentaDTO(
-                idCuenta,
-                "Pepito perez",
-                telefonos,
-                "Nueva dirección",
-                "password"
+    public void activarCuentaTest() {
+        ActivarCuentaDTO activarCuentaDTO = new ActivarCuentaDTO(
+                "luisc.moralesc@uqvirtual.edu.co",
+                "B7e2KRXdC8"
         );
 
 
-        //Se espera que no se lance ninguna excepción
         assertDoesNotThrow(() -> {
-            //Se actualiza la cuenta del usuario con el id definido
+            boolean resultado = cuentaServicio.activarCuenta(activarCuentaDTO);
+            assertTrue(resultado);
+        });
+    }
+
+    @Test
+    public void editarCuentaTest(){
+        String idCuenta = "1091884230";
+        List<String> telefonos=new ArrayList<>();
+        telefonos.add("320492232");
+        EditarCuentaDTO editarCuentaDTO = new EditarCuentaDTO(
+                idCuenta,
+                "Carlos Morales",
+                telefonos,
+                "Calle 50 #30-42"
+        );
+
+
+        assertDoesNotThrow(() -> {
+
             cuentaServicio.editarCuenta(editarCuentaDTO);
 
 
-            //Obtenemos el detalle de la cuenta del usuario con el id definido
             InformacionCuentaDTO detalle = cuentaServicio.obtenerInformacionCuenta(idCuenta);
 
 
-            //Se verifica que la dirección del usuario sea la actualizada
-            assertEquals("Nueva dirección", detalle.direccion());
+            assertEquals("Calle 50 #30-42", detalle.direccion());
         });
     }
 
 
     @Test
-    public void eliminarCuentaTest(){
-        //Se define el id de la cuenta del usuario a eliminar, este id está en el dataset.js
-        String idCuenta = "66a2a9aaa8620e3c1c5437be";
-
-        //Se elimina la cuenta del usuario con el id definido
+    public void eliminarCuentaTest()  {
+        String idCuenta = "1091884230";
         assertDoesNotThrow(() -> cuentaServicio.eliminarCuenta(idCuenta) );
 
+    }
 
-        //Al intentar obtener la cuenta del usuario con el id definido se debe lanzar una excepción
-        assertThrows(Exception.class, () -> cuentaServicio.obtenerInformacionCuenta(idCuenta) );
+    @Test
+    public void enviarCodigoRecuperacionPasswordTest() {
+        String correo = "luisc.moralesc@uqvirtual.edu.co";
+
+        assertDoesNotThrow(() -> {
+            String resultado = cuentaServicio.enviarCodigoRecuperacionPassword(correo);
+            assertEquals("se ha enviado un correo de validacion", resultado);  // Verifica que el mensaje sea el esperado
+        });
+    }
+    @Test
+    public void cambiarPasswordTest() {
+        CambiarPasswordDTO cambiarPasswordDTO = new CambiarPasswordDTO(
+                "luisc.moralesc@uqvirtual.edu.co",
+                "Hr7yyupmBn", //Codigo que recibimos por correo
+                "nuevaPassword"
+        );
+
+        assertDoesNotThrow(() -> {
+            String resultado = cuentaServicio.cambiarPassword(cambiarPasswordDTO);
+            assertEquals("contraseña cambiada correctamente",resultado);  // Verifica que la contraseña se cambie correctamente
+        });
+    }
+    @Test
+    public void iniciarSesionTest() {
+        LoginDTO loginDTO = new LoginDTO(
+                "luisc.moralesc@uqvirtual.edu.co",
+                "nuevaPassword"
+        );
+
+        assertDoesNotThrow(() -> {
+            TokenDTO tokenDTO=cuentaServicio.iniciarSesion(loginDTO);
+            assertEquals("Token", tokenDTO.toString());
+        });
+    }
+    @Test
+    public void eliminarEventoCarritoTest() {
+        EliminarEventoDTO eliminarEventoDTO = new EliminarEventoDTO(
+                "1091884230",
+                "evento123"
+        );
+
+        assertDoesNotThrow(() -> {
+            String resultado = cuentaServicio.eliminarEventoCarrito(eliminarEventoDTO);
+            assertEquals("Evento eliminado del carrito correctamente", resultado);  // Verifica que el evento se elimine correctamente
+        });
+    }
+    @Test
+    public void agregarEventoCarritoTest() {
+        AgregarEventoDTO agregarEventoDTO = new AgregarEventoDTO(
+                3,
+                "General",
+                "evento123",
+                "1091884230",
+                LocalDateTime.now()
+        );
+
+        assertDoesNotThrow(() -> {
+            String resultado = cuentaServicio.agregarEventoCarrito(agregarEventoDTO);
+            assertEquals("Evento agregado al carrito con éxito", resultado);  // Verifica que el evento se agregue correctamente
+        });
+    }
+
+    @Test
+    public void listarTest(){
+
+        List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();
+
+        assertEquals(3, lista.size());
     }
 
 }

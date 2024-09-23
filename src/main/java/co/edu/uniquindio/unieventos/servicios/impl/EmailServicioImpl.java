@@ -2,7 +2,7 @@ package co.edu.uniquindio.unieventos.servicios.impl;
 
 import co.edu.uniquindio.unieventos.dto.email.EmailDTO;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EmailServicio;
-import co.edu.uniquindio.unieventos.utils.JWTUtils;
+import co.edu.uniquindio.unieventos.config.JWTUtils;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

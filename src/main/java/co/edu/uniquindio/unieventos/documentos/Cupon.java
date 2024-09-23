@@ -19,7 +19,6 @@ public class Cupon implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
     private String nombre;
     private String codigo;
     private float descuento;
