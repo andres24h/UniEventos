@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unieventos.utils;
 
 
+import co.edu.uniquindio.unieventos.config.JWTUtils;
 import co.edu.uniquindio.unieventos.dto.email.MensajeDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;

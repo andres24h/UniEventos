@@ -16,4 +16,5 @@ public interface OrdenRepo extends MongoRepository<Orden, String> {
             "{ $project: { fecha: '$fecha', estado: '$estado', pago: '$pago', nombreUsuario: '$usuario.nombre', correoUsuario: '$usuario.email' } }"
     })
     List<ItemOrdenDTO> listarOrdenes(String codigoCliente);
+    List<Orden> findByIdCliente(String idCliente);
 }

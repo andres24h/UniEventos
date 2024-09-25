@@ -17,15 +17,15 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Orden implements Serializable {
-
     @Id
     @EqualsAndHashCode.Include
     private String id;
-    private ObjectId idCliente;
+    private String idCliente;
     private ObjectId idCupon;
     private String codigoPasarela;
     private Pago pago;
     private float total;
     private LocalDateTime fecha;
     private List<DetalleOrden> items;
+
 }

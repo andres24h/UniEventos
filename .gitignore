@@ -16,6 +16,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -40,3 +41,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+src/main/resources/proyecto-33d70-firebase-adminsdk-6zo39-85133a6952.json

@@ -29,7 +29,7 @@ public class Cuenta {
     private CodigoValidacion codigoValidacionRegistro;
     private CodigoValidacion codigoValidacionPassword;
     private LocalDateTime fechaRegistro;
-
+    private Carrito carrito;
 
 
 }
