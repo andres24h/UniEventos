@@ -29,20 +29,16 @@ public class Cupon implements Serializable {
 
 
     @Builder
-    public Cupon( String nombre, String codigo, float descuento,
+    public Cupon( String nombre, String codigo, float descuento, EstadoCupon estado,
                  TipoCupon tipo, LocalDateTime fechaVencimiento) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.descuento = descuento;
         this.estado = EstadoCupon.NO_DISPONIBLE;
-        this.tipo = tipo;
+        this.tipo = TipoCupon.UNICO;
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public Cupon(Object o, String nombre, String codigo, float descuento, TipoCupon tipo, LocalDate localDate) {
-    }
-
-
-    public Cupon(Object o, String nombre, String codigo, float descuento, TipoCupon tipo, LocalDateTime localDateTime) {
+    public Cupon(Object o, String codigo, String nombre, float descuento, LocalDateTime localDateTime) {
     }
 }

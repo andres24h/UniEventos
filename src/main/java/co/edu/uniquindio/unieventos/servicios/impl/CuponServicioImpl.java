@@ -27,11 +27,12 @@ public class CuponServicioImpl implements CuponServicio {
     public String crearCupones(CrearCuponDTO cuponDTO) {
         Cupon cupon = new Cupon(
                 null, // ID será generado automáticamente
-                cuponDTO.nombre(),
                 cuponDTO.codigo(),
+                cuponDTO.nombre(),
                 cuponDTO.descuento(),
-                cuponDTO.tipo(),
                 cuponDTO.fechaVencimiento()
+                //cuponDTO.tipoCupon()
+
         );
         cuponRepo.save(cupon); // Guarda el cupon en la base de datos
         return cupon.getId(); // Retorna el ID del cupon creado
