@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import org.bson.types.ObjectId;
+
 public record EliminarEventoDTO(
         String idCliente,
-        String idEvento
+        ObjectId idDetalle
 ) {
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class DetalleCarrito  {
     @Id
     @EqualsAndHashCode.Include
-    private String codigoDetalle;
+    private ObjectId codigoDetalle;
     private String idEvento;
     private int cantidad;
     private String nombreLocalidad;

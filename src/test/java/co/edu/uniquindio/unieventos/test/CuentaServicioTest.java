@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.test;
 
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,7 +47,7 @@ public class CuentaServicioTest {
     public void activarCuentaTest() {
         ActivarCuentaDTO activarCuentaDTO = new ActivarCuentaDTO(
                 "luisc.moralesc@uqvirtual.edu.co",
-                "B7e2KRXdC8"
+                "ATFK1uaziy"
         );
 
 
@@ -127,7 +128,7 @@ public class CuentaServicioTest {
     public void eliminarEventoCarritoTest() {
         EliminarEventoDTO eliminarEventoDTO = new EliminarEventoDTO(
                 "1091884230",
-                "evento123"
+                new ObjectId("66f8a476e6f00716b3b59ece")
         );
 
         assertDoesNotThrow(() -> {

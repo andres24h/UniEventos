@@ -195,6 +195,12 @@ public class CuentaServicioImpl implements CuentaServicio {
             throw new Exception("El correo dado no está registrado");
         }
         Cuenta cuenta = cuentaOptional.get();
+        if (cuenta.getEstado().equals(EstadoCuenta.INACTIVO)) {
+            throw new Exception("Su cuenta no se encuentra activa");
+        }
+        if (cuenta.getEstado().equals(EstadoCuenta.ELIMINADO)) {
+            throw new Exception("Su cuenta esta eliminada");
+        }
         CodigoValidacion codigoValidacion = cuenta.getCodigoValidacionPassword();
 
         if (codigoValidacion.getCodigo().equals(cambiarPasswordDTO.codigoVerificacion())) {
@@ -203,7 +209,6 @@ public class CuentaServicioImpl implements CuentaServicio {
                 String passwordEncriptada= encriptarPassword(cambiarPasswordDTO.passwordNueva());
                 cuenta.setPassword(passwordEncriptada);
 
-                //Esto es para que solo se cambia una vez con un codigo
                 CodigoValidacion codigoValidacion1=new CodigoValidacion();
                 cuenta.setCodigoValidacionPassword(codigoValidacion1);
                 cuentaRepo.save(cuenta);
@@ -220,8 +225,6 @@ public class CuentaServicioImpl implements CuentaServicio {
 
     @Override
     public TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception {
-
-
         Optional<Cuenta> cuentaOptional= cuentaRepo.buscarEmail(loginDTO.correo());
         if(cuentaOptional.isEmpty()){
             throw new Exception("No existe la cuenta");
@@ -234,7 +237,6 @@ public class CuentaServicioImpl implements CuentaServicio {
         if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ) {
             throw new Exception("La contraseña es incorrecta");
         }
-
 
         Map<String, Object> map = construirClaims(cuenta);
         return new TokenDTO( jwtUtils.generarToken(cuenta.getEmail(), map) );
@@ -252,9 +254,6 @@ public class CuentaServicioImpl implements CuentaServicio {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode( password );
     }
-
-
-
 
     @Override
     public String agregarEventoCarrito(AgregarEventoDTO agregarEventoDTO) throws Exception {
@@ -281,6 +280,7 @@ public class CuentaServicioImpl implements CuentaServicio {
         }
 
         DetalleCarrito detalleCarrito = new DetalleCarrito();
+        detalleCarrito.setCodigoDetalle(new ObjectId());
         detalleCarrito.setIdEvento(agregarEventoDTO.idEvento());
         detalleCarrito.setCantidad(agregarEventoDTO.cantidad());
         detalleCarrito.setNombreLocalidad(agregarEventoDTO.nombreLocalidad());
@@ -314,6 +314,10 @@ public class CuentaServicioImpl implements CuentaServicio {
         if (cuenta.getEstado().equals(EstadoCuenta.ELIMINADO)) {
             throw new Exception("La cuenta ha sido eliminada");
         }
+        if (cuenta.getEstado().equals(EstadoCuenta.INACTIVO)) {
+            throw new Exception("Su cuenta no se encuentra activa");
+        }
+
 
         Carrito carrito = cuenta.getCarrito();
         if (carrito == null || carrito.getItems().isEmpty()) {
@@ -322,7 +326,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         List<DetalleCarrito> detalles = carrito.getItems();
         Optional<DetalleCarrito> detalleCarritoOptional = detalles.stream()
-                .filter(detalle -> detalle.getIdEvento().equals(eliminarEventoDTO.idEvento()))
+                .filter(detalle -> detalle.getCodigoDetalle().equals(eliminarEventoDTO.idDetalle()))
                 .findFirst();
 
         if (detalleCarritoOptional.isEmpty()) {
@@ -354,12 +358,10 @@ public class CuentaServicioImpl implements CuentaServicio {
         return items;
     }
 
-
-
-
     private boolean existeEmail(String email) {
         return cuentaRepo.buscarEmail(email).isPresent();
     }
+
     private boolean existeCedula(String cedula) {
         return cuentaRepo.buscarId(cedula).isPresent();
     }
