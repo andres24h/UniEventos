@@ -4,6 +4,8 @@ import co.edu.uniquindio.unieventos.dto.cupon.ActualizarCuponDTO;
 import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
 import co.edu.uniquindio.unieventos.dto.cupon.ItemCuponDTO;
 
+import java.util.List;
+
 
 public interface CuponServicio {
     String crearCupones(CrearCuponDTO cuponDTO);
@@ -11,7 +13,7 @@ public interface CuponServicio {
     void borrarCupon(String idCupon);
     boolean validarCupon(String idCupon, String userId);
     String redimirCupon(String idCupon, String idCliente);
-    ItemCuponDTO listarCupones(String idCupon, String idCliente);
+    List<ItemCuponDTO> listarCupones(String idCupon, String idCliente);
 
 
 }
