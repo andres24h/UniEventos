@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CuponServicio {
     String crearCupones(CrearCuponDTO cuponDTO);
-    String actualizarCupon(ActualizarCuponDTO cuponDTO);
+    String actualizarCupon(ActualizarCuponDTO cuponDTO)throws Exception;
     void borrarCupon(String idCupon);
     boolean validarCupon(String idCupon, String userId);
     String redimirCupon(String idCupon, String idCliente);

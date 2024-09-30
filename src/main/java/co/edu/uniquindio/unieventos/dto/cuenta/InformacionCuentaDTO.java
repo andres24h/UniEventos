@@ -1,12 +1,17 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
 public record InformacionCuentaDTO(
-        String cedula,
-        String nombre,
+        @NotBlank String cedula,
+        @NotBlank String nombre,
         List<String> telefonos,
         String direccion,
-        String correo
+        @NotBlank @Email String correo
+
+
 ) {
 }

@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record LoginDTO(
-        String correo,
-        String password
+        @NotBlank String correo,
+        @NotBlank String password
 ) {
 }

@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record MensajeDTO<T>(
-        boolean error,
-        T respuesta
+        @NotBlank boolean error,
+        @NotBlank T respuesta
 ) {
 }

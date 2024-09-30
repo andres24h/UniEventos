@@ -1,9 +1,10 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import jakarta.validation.constraints.NotBlank;
 import org.bson.types.ObjectId;
 
 public record EliminarEventoDTO(
-        String idCliente,
-        ObjectId idDetalle
+        @NotBlank String idCliente,
+        @NotBlank ObjectId idDetalle
 ) {
 }

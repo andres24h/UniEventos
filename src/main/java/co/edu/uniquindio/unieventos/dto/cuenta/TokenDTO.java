@@ -1,6 +1,8 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record TokenDTO (
-        String token
+        @NotBlank String token
 ) {
 }
