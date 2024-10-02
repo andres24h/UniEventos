@@ -275,6 +275,22 @@ public class CuentaServicioImpl implements CuentaServicio {
             throw new Exception("La cuenta ha sido eliminada");
         }
 
+        Optional<Evento> optionalEvento = eventoRepo.findById(agregarEventoDTO.idEvento());
+        if(optionalEvento.isEmpty()){
+            throw new Exception("El evento no fue encontrado");
+        }
+
+        Evento evento=optionalEvento.get();
+
+        Localidad localidad = evento.getLocalidades().stream()
+                .filter(l -> l.getNombre().equals(agregarEventoDTO.nombreLocalidad()))
+                .findFirst().orElseThrow(() -> new Exception("La localidad no existe"));
+
+        if (localidad.cantidadDisponible() < agregarEventoDTO.cantidad()) {
+            throw new Exception("No hay suficientes entradas disponibles en este momento hay" +
+                    +localidad.cantidadDisponible());
+        }
+
         Carrito carrito = cuenta.getCarrito();
         if (carrito == null) {
             carrito = new Carrito();
