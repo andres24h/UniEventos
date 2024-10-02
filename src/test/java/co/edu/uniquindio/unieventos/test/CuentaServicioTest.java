@@ -106,30 +106,18 @@ public class CuentaServicioTest {
         });
     }
     @Test
-    public void iniciarSesionClienteTest() {
+    public void iniciarSesionTest() {
         LoginDTO loginDTO = new LoginDTO(
                 "luisc.moralesc@uqvirtual.edu.co",
                 "nuevaPassword"
         );
 
         assertDoesNotThrow(() -> {
-            TokenDTO tokenDTO=cuentaServicio.iniciarSesionCliente(loginDTO);
+            TokenDTO tokenDTO=cuentaServicio.iniciarSesion(loginDTO);
             assertEquals("Token", tokenDTO.toString());
         });
     }
 
-    @Test
-    public void iniciarSesionAdminTest() {
-        LoginDTO loginDTO = new LoginDTO(
-                "luisc.moralesc@uqvirtual.edu.co",
-                "nuevaPassword"
-        );
-
-        assertDoesNotThrow(() -> {
-            TokenDTO tokenDTO=cuentaServicio.iniciarSesionAdmin(loginDTO);
-            assertEquals("Token", tokenDTO.toString());
-        });
-    }
 
     @Test
     public void eliminarEventoCarritoTest() {
