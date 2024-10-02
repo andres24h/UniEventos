@@ -9,7 +9,7 @@ public record ItemCuponDTO(
         String id,
         String codigo,
         String nombre,
-        float descuento,
+        double descuento,
         LocalDateTime fechaVencimiento,
         TipoCupon tipoCupon
         ){

@@ -25,7 +25,9 @@ public interface CuentaServicio {
 
     String cambiarPassword(CambiarPasswordDTO cambiarPasswordDTO) throws Exception;
 
-    TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception;
+    TokenDTO iniciarSesionCliente(LoginDTO loginDTO) throws Exception;
+
+    TokenDTO iniciarSesionAdmin(LoginDTO loginDTO) throws Exception;
 
     String agregarEventoCarrito(AgregarEventoDTO agregarEventoDTO)throws Exception;
 

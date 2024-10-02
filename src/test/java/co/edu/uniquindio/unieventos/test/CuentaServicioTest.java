@@ -27,11 +27,11 @@ public class CuentaServicioTest {
         telefonos.add("315252671");
         telefonos.add("743212426");
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "1091884230",
-                "Carlos perez",
+                "3",
+                "Cuenta 3",
                 telefonos,
                 "Calle 12 #26-49",
-                "luisc.moralesc@uqvirtual.edu.co",
+                "cuenta3@gmail.com",
                 "password123"
             );
 
@@ -68,16 +68,9 @@ public class CuentaServicioTest {
                 telefonos,
                 "Calle 50 #30-42"
         );
-
-
         assertDoesNotThrow(() -> {
-
             cuentaServicio.editarCuenta(editarCuentaDTO);
-
-
             InformacionCuentaDTO detalle = cuentaServicio.obtenerInformacionCuenta(idCuenta);
-
-
             assertEquals("Calle 50 #30-42", detalle.direccion());
         });
     }
@@ -113,17 +106,31 @@ public class CuentaServicioTest {
         });
     }
     @Test
-    public void iniciarSesionTest() {
+    public void iniciarSesionClienteTest() {
         LoginDTO loginDTO = new LoginDTO(
                 "luisc.moralesc@uqvirtual.edu.co",
                 "nuevaPassword"
         );
 
         assertDoesNotThrow(() -> {
-            TokenDTO tokenDTO=cuentaServicio.iniciarSesion(loginDTO);
+            TokenDTO tokenDTO=cuentaServicio.iniciarSesionCliente(loginDTO);
             assertEquals("Token", tokenDTO.toString());
         });
     }
+
+    @Test
+    public void iniciarSesionAdminTest() {
+        LoginDTO loginDTO = new LoginDTO(
+                "luisc.moralesc@uqvirtual.edu.co",
+                "nuevaPassword"
+        );
+
+        assertDoesNotThrow(() -> {
+            TokenDTO tokenDTO=cuentaServicio.iniciarSesionAdmin(loginDTO);
+            assertEquals("Token", tokenDTO.toString());
+        });
+    }
+
     @Test
     public void eliminarEventoCarritoTest() {
         EliminarEventoDTO eliminarEventoDTO = new EliminarEventoDTO(

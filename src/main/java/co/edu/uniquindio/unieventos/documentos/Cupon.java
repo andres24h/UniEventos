@@ -23,10 +23,10 @@ public class Cupon implements Serializable {
     private String id;
     private String nombre;
     private String codigo;
-    private float descuento;
+    private double descuento;
     private EstadoCupon estado;
     private TipoCupon tipo;
     private LocalDateTime fechaVencimiento;
-    private List<Cuenta> beneficiarios;
+    private List<String> beneficiarios;
 
 }

@@ -1,17 +1,16 @@
 package co.edu.uniquindio.unieventos.servicios.impl;
 
-import co.edu.uniquindio.unieventos.documentos.Cupon;
-import co.edu.uniquindio.unieventos.documentos.EstadoCupon;
-import co.edu.uniquindio.unieventos.documentos.TipoCupon;
-import co.edu.uniquindio.unieventos.dto.cupon.ActualizarCuponDTO;
-import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
-import co.edu.uniquindio.unieventos.dto.cupon.ItemCuponDTO;
+import co.edu.uniquindio.unieventos.documentos.*;
+import co.edu.uniquindio.unieventos.dto.cupon.*;
+import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.repositorios.CuponRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,17 +21,26 @@ import java.util.stream.Collectors;
 public class CuponServicioImpl implements CuponServicio {
 
     private final CuponRepo cuponRepo;
-
-    public CuponServicioImpl(CuponRepo cuponRepo) {
+    private final CuentaRepo cuentaRepo;
+    public CuponServicioImpl(CuponRepo cuponRepo, CuentaRepo cuentaRepo) {
         this.cuponRepo = cuponRepo;
+        this.cuentaRepo = cuentaRepo;
     }
 
     @Override
-    public String crearCupones(CrearCuponDTO cuponDTO) {
+    public String crearCupones(CrearCuponDTO cuponDTO)throws Exception {
 
         if (cuponDTO.fechaVencimiento().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("La fecha de vencimiento no puede ser en el pasado");
+            throw new Exception("La fecha de vencimiento no puede ser en el pasado");
         }
+
+        if(existeCodigo(cuponDTO.codigo())){
+            throw new Exception("el codigo ya existe:"+cuponDTO.codigo());
+        }
+        if(existeNombre(cuponDTO.nombre())){
+            throw new Exception("el nombre ya existe:"+cuponDTO.nombre());
+        }
+
         Cupon cupon;
         cupon = new Cupon();
 
@@ -43,7 +51,14 @@ public class CuponServicioImpl implements CuponServicio {
             cupon.setEstado(cuponDTO.estado());
             cupon.setTipo(cuponDTO.tipo());
             cupon.setFechaVencimiento(cuponDTO.fechaVencimiento());
-            cupon.setBeneficiarios(cuponDTO.beneficiarios());
+
+            List<String> beneficiariosClientes = cuentaRepo.findByRol(Rol.CLIENTE.toString())
+                    .stream()
+                    .map(Cuenta::getId)
+                    .collect(Collectors.toList());
+            cupon.setBeneficiarios(beneficiariosClientes);
+
+
         } else {
             String codigoIndividual = generarCodigoIndividual();
             cupon.setCodigo(codigoIndividual);
@@ -56,21 +71,29 @@ public class CuponServicioImpl implements CuponServicio {
         }
 
         cuponRepo.save(cupon);
-        return cupon.getId().toString();
+        return cupon.getId();
     }
+
     @Override
     public String actualizarCupon(ActualizarCuponDTO actualizarCuponDTO) throws Exception {
         Optional<Cupon> Optionalcupon = cuponRepo.findById(actualizarCuponDTO.id());
-        if(Optionalcupon.isEmpty()){
+
+        if (Optionalcupon.isEmpty()) {
             throw new Exception("El cupon no existe");
         }
-        Cupon cupon= Optionalcupon.get();
+        Cupon cupon = Optionalcupon.get();
         cupon.setNombre(actualizarCuponDTO.nombre());
         cupon.setDescuento(actualizarCuponDTO.descuento());
         cupon.setEstado(actualizarCuponDTO.estadoCupon());
         cupon.setTipo(actualizarCuponDTO.tipoCupon());
+
+        if (actualizarCuponDTO.fechaVencimiento().isBefore(LocalDateTime.now())) {
+            throw new Exception("La fecha de vencimiento no puede ser en el pasado");
+        }
+
         cupon.setFechaVencimiento(actualizarCuponDTO.fechaVencimiento());
 
+        cuponRepo.save(cupon);
 
         return cupon.getId();
     }
@@ -82,43 +105,83 @@ public class CuponServicioImpl implements CuponServicio {
     }
 
     @Override
-    public boolean validarCupon(String idCupon, String userId) {
-        // Implementación de validación del cupón
-        return false;
+    public String redimirCupon(RedimirCuponDTO redimirCuponDTO)throws Exception {
+        Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(redimirCuponDTO.codigoCupon());
+        if (cuponOptional.isEmpty()) {
+            throw new Exception("El cupón no existe");
+        }
+        Cupon cupon = cuponOptional.get();
+
+        if (!cupon.getBeneficiarios().contains(redimirCuponDTO.idCliente())) {
+            throw new IllegalArgumentException("El cliente no cuenta con este cupon");
+        }
+        if (!verificarDisponibilidadCupon(redimirCuponDTO.codigoCupon())) {
+            throw new Exception("El cupón ya no se encuentra disponible");
+        }
+
+        List<String> beneficiarios = cupon.getBeneficiarios();
+        beneficiarios.remove(redimirCuponDTO.idCliente());
+        cupon.setBeneficiarios(beneficiarios);
+
+        cuponRepo.save(cupon);
+
+        return "Cupon redimido correctamente";
     }
 
-    @Override
-    public String redimirCupon(String idCupon, String idCliente) {
-        // Implementación de redención del cupón
-        return "";
-
-    }
-    private String generarCodigoIndividual() {
-        return "CUPON-" + UUID.randomUUID().toString();
-    }
-
-
-    public boolean verificarDisponibilidadCupon(String idCupon) {
-        Optional<Cupon> cuponOptional = cuponRepo.findById(idCupon);
+    public boolean verificarDisponibilidadCupon(String codigoCupon) {
+        Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(codigoCupon);
         if (cuponOptional.isEmpty()) {
             return false;
         }
         Cupon cupon = cuponOptional.get();
 
-        return cupon.getEstado() == EstadoCupon.DISPONIBLE &&
-                cupon.getFechaVencimiento().isAfter(LocalDateTime.now());
+        if(cupon.getEstado() == EstadoCupon.DISPONIBLE &&
+                cupon.getFechaVencimiento().isAfter(LocalDateTime.now())){
+            return true;
+        }
+        return false;
     }
-
 
     @Override
-    public List<ItemCuponDTO> listarCupones(String idCupon, String idCliente) {
-        return cuponRepo.findAll().stream().map(cupon -> new ItemCuponDTO(
-                cupon.getId(),
-                cupon.getCodigo(),
-                cupon.getNombre(),
-                cupon.getDescuento(),
-                cupon.getFechaVencimiento(),
-                cupon.getTipo()
-        )).collect(Collectors.toList());
+    public List<ItemCuponDTO> listarCupones() {
+        return cuponRepo.findAll().stream()
+                .map(cupon -> new ItemCuponDTO(
+                        cupon.getId(),
+                        cupon.getCodigo(),
+                        cupon.getNombre(),
+                        cupon.getDescuento(),
+                        cupon.getFechaVencimiento(),
+                        cupon.getTipo()
+                )).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ItemCuponDTO> listarCuponesCliente(ListarCupoDTO listarCupoDTO) {
+        return cuponRepo.findByBeneficiariosContains(listarCupoDTO.idCliente())
+                .stream()
+                .map(cupon -> new ItemCuponDTO(
+                        cupon.getId(),
+                        cupon.getCodigo(),
+                        cupon.getNombre(),
+                        cupon.getDescuento(),
+                        cupon.getFechaVencimiento(),
+                        cupon.getTipo()
+                )).collect(Collectors.toList());
+    }
+
+
+
+        private String generarCodigoIndividual() {
+        return "CUPON-" + UUID.randomUUID().toString();
+    }
+
+
+
+    private boolean existeCodigo(String codigo) {
+        return cuentaRepo.buscarEmail(codigo).isPresent();
+    }
+    private boolean existeNombre(String nombre) {
+        return cuentaRepo.buscarEmail(nombre).isPresent();
+    }
+
 }

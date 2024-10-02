@@ -224,7 +224,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
 
     @Override
-    public TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception {
+    public TokenDTO iniciarSesionCliente(LoginDTO loginDTO) throws Exception {
         Optional<Cuenta> cuentaOptional= cuentaRepo.buscarEmail(loginDTO.correo());
         if(cuentaOptional.isEmpty()){
             throw new Exception("No existe la cuenta");
@@ -238,11 +238,38 @@ public class CuentaServicioImpl implements CuentaServicio {
             throw new Exception("La contraseña es incorrecta");
         }
 
-        Map<String, Object> map = construirClaims(cuenta);
+        Map<String, Object> map = construirClaimsCliente(cuenta);
         return new TokenDTO( jwtUtils.generarToken(cuenta.getEmail(), map) );
     }
 
-    private Map<String, Object> construirClaims(Cuenta cuenta) {
+    private Map<String, Object> construirClaimsCliente(Cuenta cuenta) {
+        return Map.of(
+                "rol", cuenta.getRol(),
+                "nombre", cuenta.getUsuario().getNombre(),
+                "id", cuenta.getId()
+        );
+    }
+
+    @Override
+    public TokenDTO iniciarSesionAdmin(LoginDTO loginDTO) throws Exception {
+        Optional<Cuenta> cuentaOptional= cuentaRepo.buscarEmail(loginDTO.correo());
+        if(cuentaOptional.isEmpty()){
+            throw new Exception("No existe la cuenta");
+        }
+        Cuenta cuenta=cuentaOptional.get();
+        if(cuenta.getEstado().equals(EstadoCuenta.ELIMINADO)){
+            throw new Exception("La cuenta ya fue eliminada");
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ) {
+            throw new Exception("La contraseña es incorrecta");
+        }
+
+        Map<String, Object> map = construirClaimsCliente(cuenta);
+        return new TokenDTO( jwtUtils.generarToken(cuenta.getEmail(), map) );
+    }
+
+    private Map<String, Object> construirClaimsAdmin(Cuenta cuenta) {
         return Map.of(
                 "rol", cuenta.getRol(),
                 "nombre", cuenta.getUsuario().getNombre(),
