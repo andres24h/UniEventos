@@ -26,13 +26,26 @@ public class EmailServicioImpl implements EmailServicio {
      * @throws Exception
      */
     @Override
-    public void enviarCorreo(EmailDTO emailDTO) throws Exception {
+    public boolean enviarCorreo(EmailDTO emailDTO) throws Exception {
+
         MimeMessage mensaje = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mensaje);
-        helper.setSubject(emailDTO.asunto());
-        helper.setText(emailDTO.cuerpo(), true);
-        helper.setTo(emailDTO.destinatario());
-        helper.setFrom("no_reply@dominio.com");
-        javaMailSender.send(mensaje);
+
+        try {
+
+            helper.setSubject(emailDTO.asunto());
+            helper.setText(emailDTO.cuerpo(), true);
+            helper.setTo(emailDTO.destinatario());
+            helper.setFrom("no_reply@dominio.com");
+
+            javaMailSender.send(mensaje);
+
+            return true; // Retorna true si el correo se envía correctamente
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return false; // Retornar false si ocurre algún error
+        }
     }
 }
