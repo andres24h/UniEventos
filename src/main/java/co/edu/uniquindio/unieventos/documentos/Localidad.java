@@ -20,10 +20,9 @@ public class Localidad implements Serializable {
     private String id;
 
     private String nombre;
-    private float precio;
+    private double precio;
     private int entradasVendidas;
     private int capacidadMaxima;
-
 
     public int cantidadDisponible() {
         return capacidadMaxima - entradasVendidas;

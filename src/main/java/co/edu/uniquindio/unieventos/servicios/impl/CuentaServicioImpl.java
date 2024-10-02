@@ -5,6 +5,7 @@ import co.edu.uniquindio.unieventos.documentos.*;
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.dto.email.EmailDTO;
 import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
+import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EmailServicio;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class CuentaServicioImpl implements CuentaServicio {
     private final CuentaRepo cuentaRepo;
     private final JWTUtils jwtUtils;
     private final EmailServicio emailServicio;
+    private final EventoRepo eventoRepo;
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {

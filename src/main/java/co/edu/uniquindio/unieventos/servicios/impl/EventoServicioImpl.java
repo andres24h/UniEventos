@@ -4,6 +4,7 @@ import co.edu.uniquindio.unieventos.documentos.Evento;
 import co.edu.uniquindio.unieventos.dto.evento.*;
 import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EventoServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,11 @@ import java.util.List;
 @Service
 @Transactional
 public class EventoServicioImpl implements EventoServicio {
+    @Autowired
     EventoRepo eventoRepo;
 
 
     public String crearEvento(CrearEventoDTO crearEventoDTO) throws Exception {
-        // Verifica si ya existe un evento con el mismo nombre
         if (existeNombre(crearEventoDTO.nombre())) {
             throw new Exception("El nombre ya existe, elija otro nombre");
         }

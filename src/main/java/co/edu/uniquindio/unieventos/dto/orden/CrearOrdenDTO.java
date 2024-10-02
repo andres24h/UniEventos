@@ -8,10 +8,6 @@ import java.util.List;
 
 public record CrearOrdenDTO(
      String idCliente,
-     ObjectId idCupon,
-     String codigoPasarela,
-     Pago pago,
-     float total,
-     List<DetalleOrden> items
+     ObjectId idCupon
 ) {
 }
