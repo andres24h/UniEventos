@@ -17,7 +17,7 @@ public class DetalleCarrito  {
     @Id
     @EqualsAndHashCode.Include
     private ObjectId codigoDetalle;
-    private String idEvento;
+    private ObjectId idEvento;
     private int cantidad;
     private String nombreLocalidad;
 }

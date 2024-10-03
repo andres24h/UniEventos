@@ -1,4 +1,4 @@
 package co.edu.uniquindio.unieventos.dto.orden;
 
-public class OrdenDTO {
+public class DetalleOrdenDTO {
 }

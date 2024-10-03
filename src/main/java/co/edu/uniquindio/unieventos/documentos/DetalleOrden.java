@@ -15,7 +15,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class DetalleOrden implements Serializable {
-    private String idEvento;
-    private float precioUnitario;
+    private ObjectId idEvento;
+    private double precioUnitario;
     private String nombreLocalidad;
+    private int cantidad;
 }

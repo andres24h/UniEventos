@@ -103,8 +103,8 @@ public class CuponServicioTest {
         RedimirCuponDTO redimirCuponDTO = new RedimirCuponDTO("CUPON-AA12", "1");
 
         assertDoesNotThrow(() -> {
-            String resultado = cuponServicio.redimirCupon(redimirCuponDTO);
-            assertEquals("Cupon redimido correctamente", resultado);
+            boolean resultado = cuponServicio.redimirCupon(redimirCuponDTO);
+            assertEquals(true, resultado);
         });
     }
 

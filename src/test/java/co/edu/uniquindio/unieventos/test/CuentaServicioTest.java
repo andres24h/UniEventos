@@ -135,8 +135,8 @@ public class CuentaServicioTest {
     public void agregarEventoCarritoTest() {
         AgregarEventoDTO agregarEventoDTO = new AgregarEventoDTO(
                 3,
-                "General",
-                "evento123",
+                "VIP",
+                new ObjectId("66fdb5885aa7fb5163c9584a"),
                 "1091884230",
                 LocalDateTime.now()
         );

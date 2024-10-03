@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unieventos.repositorios;
 
 import co.edu.uniquindio.unieventos.documentos.Evento;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -12,6 +13,7 @@ public interface EventoRepo extends MongoRepository<Evento, String> {
     Optional<Evento> findByTipo(String tipo);
 
     Optional<Evento> findById(String id);
+    Optional<Evento> findById(ObjectId id);
 
     Optional<Evento> findByCiudad(String ciudad);
     Optional<Evento> findByNombreContains(String nombre);

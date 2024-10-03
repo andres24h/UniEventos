@@ -21,10 +21,10 @@ public class Orden implements Serializable {
     @EqualsAndHashCode.Include
     private String id;
     private String idCliente;
-    private ObjectId idCupon;
+    private String idCupon;
     private String codigoPasarela;
     private Pago pago;
-    private float total;
+    private double total;
     private LocalDateTime fecha;
     private List<DetalleOrden> items;
 

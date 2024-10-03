@@ -11,7 +11,7 @@ import java.util.List;
 public record AgregarEventoDTO(
         @NotBlank int cantidad,
         @NotBlank String nombreLocalidad,
-        @NotBlank String idEvento,
+        @NotBlank ObjectId idEvento,
         @NotBlank String idUsuario,
         @NotNull LocalDateTime fecha){
 }

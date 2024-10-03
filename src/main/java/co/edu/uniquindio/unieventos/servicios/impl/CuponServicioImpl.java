@@ -85,7 +85,6 @@ public class CuponServicioImpl implements CuponServicio {
         cupon.setNombre(actualizarCuponDTO.nombre());
         cupon.setDescuento(actualizarCuponDTO.descuento());
         cupon.setEstado(actualizarCuponDTO.estadoCupon());
-        cupon.setTipo(actualizarCuponDTO.tipoCupon());
 
         if (actualizarCuponDTO.fechaVencimiento().isBefore(LocalDateTime.now())) {
             throw new Exception("La fecha de vencimiento no puede ser en el pasado");
@@ -105,7 +104,7 @@ public class CuponServicioImpl implements CuponServicio {
     }
 
     @Override
-    public String redimirCupon(RedimirCuponDTO redimirCuponDTO)throws Exception {
+    public boolean redimirCupon(RedimirCuponDTO redimirCuponDTO)throws Exception {
         Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(redimirCuponDTO.codigoCupon());
         if (cuponOptional.isEmpty()) {
             throw new Exception("El cupón no existe");
@@ -125,8 +124,40 @@ public class CuponServicioImpl implements CuponServicio {
 
         cuponRepo.save(cupon);
 
-        return "Cupon redimido correctamente";
+        return true;
     }
+
+    @Override
+    public boolean revertirRedencionCupon(RevertirCuponDTO revertirCuponDTO) throws Exception {
+        Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(revertirCuponDTO.codigoCupon());
+        if (cuponOptional.isEmpty()) {
+            throw new Exception("El cupón no existe");
+        }
+
+        Cupon cupon = cuponOptional.get();
+
+        if (cupon.getFechaVencimiento().isBefore(LocalDateTime.now())) {
+            throw new Exception("El cupón ha expirado");
+        }
+
+        List<String> beneficiarios = cupon.getBeneficiarios();
+        if (!beneficiarios.contains(revertirCuponDTO.idCliente())) {
+            beneficiarios.add(revertirCuponDTO.idCliente());
+            cupon.setBeneficiarios(beneficiarios);
+        } else {
+            throw new Exception("El cliente ya posee este cupón");
+        }
+
+        if (cupon.getEstado() != EstadoCupon.DISPONIBLE) {
+            cupon.setEstado(EstadoCupon.DISPONIBLE);
+        }
+
+
+        cuponRepo.save(cupon);
+
+        return true;
+    }
+
 
     public boolean verificarDisponibilidadCupon(String codigoCupon) {
         Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(codigoCupon);
