@@ -1,11 +1,8 @@
 package co.edu.uniquindio.unieventos.servicios.interfaces;
 
 import co.edu.uniquindio.unieventos.documentos.Orden;
-import co.edu.uniquindio.unieventos.documentos.Pago;
 import co.edu.uniquindio.unieventos.dto.orden.CrearOrdenDTO;
 import co.edu.uniquindio.unieventos.dto.orden.ItemOrdenDTO;
-import co.edu.uniquindio.unieventos.dto.orden.ObtenerOrdenDTO;
-import com.mercadopago.resources.payment.Payment;
 import com.mercadopago.resources.preference.Preference;
 
 import java.util.List;

@@ -16,7 +16,7 @@ public class EmailServicioTest {
      @Test
      public void enviarCorreoTest() throws Exception {
 
-          EmailDTO emailDTO = new EmailDTO("Prueba de envío", "Mensaje de prueba 4 ", "amhernandezp@uqvirtual.edu.co");
+          EmailDTO emailDTO = new EmailDTO("Perez pierda ecuaciaciones", "Mensaje de prueba 4 ", "juandras2004perez@gmail.com");
 
           boolean enviado = emailServicio.enviarCorreo(emailDTO);
           Assertions.assertTrue(enviado, "El correo no fue enviado correctamente");
