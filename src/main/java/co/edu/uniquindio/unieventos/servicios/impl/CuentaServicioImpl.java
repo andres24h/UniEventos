@@ -85,7 +85,13 @@ public class CuentaServicioImpl implements CuentaServicio {
         Duration duracionValidez = Duration.ofMinutes(15);
 
         if (Duration.between(fechaCreacion, fechaActual).compareTo(duracionValidez) > 0) {
+            cuenta.setCodigoValidacionRegistro(new CodigoValidacion(generarCodigo(), LocalDateTime.now()));
+            EmailDTO emailDTO=new EmailDTO("Su codigo de activacion es:"+cuenta.getCodigoValidacionRegistro(),"ingrese el codigo para poder activar su cuenta",cuenta.email());
+
+            emailServicio.enviarCorreo(emailDTO);
+            cuentaRepo.save(cuenta);
             throw new Exception("El código de verificación ha expirado");
+            
         }
 
         cuenta.setEstado(EstadoCuenta.ACTIVO);
