@@ -20,11 +20,6 @@ import java.util.List;
 public class CuentaControlador {
     private final CuentaServicio cuentaServicio;
 
-    @PostMapping("/crear-cuenta")
-    public ResponseEntity<MensajeDTO<String>> crearCuenta(@Valid @RequestBody CrearCuentaDTO cuenta) throws Exception {
-        cuentaServicio.crearCuenta(cuenta);
-        return ResponseEntity.ok(new MensajeDTO<>(false, "Cuenta creada exitosamente"));
-    }
 
     @PutMapping("/editar-perfil")
     public ResponseEntity<MensajeDTO<String>> editarCuenta(@Valid @RequestBody EditarCuentaDTO cuenta) throws Exception{
