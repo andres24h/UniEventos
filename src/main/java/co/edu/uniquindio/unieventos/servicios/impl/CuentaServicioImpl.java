@@ -243,6 +243,9 @@ public class CuentaServicioImpl implements CuentaServicio {
         if(cuenta.getEstado().equals(EstadoCuenta.ELIMINADO)){
             throw new Exception("La cuenta ya fue eliminada");
         }
+        if(cuenta.getEstado().equals(EstadoCuenta.INACTIVO)){
+            throw new Exception("La cuenta se encuentra inactiva");
+        }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ) {
             throw new Exception("La contraseña es incorrecta");
