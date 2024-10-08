@@ -19,4 +19,6 @@ public interface EventoServicio {
     boolean disponiblidad(DisponibilidadEventoDTO disponibilidadEventoDTO) throws Exception;
 
     List<ItemEventoDTO> filtrarEventos(FiltroEventoDTO filtroEventoDTO);
+
+    String obtenerNombreArtista(String id) throws Exception;
 }
