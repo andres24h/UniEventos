@@ -11,6 +11,9 @@ public interface CuentaRepo extends MongoRepository<Cuenta, String> {
     @Query("{email:  ?0}")
     Optional<Cuenta> buscarEmail(String correo);
 
+    Optional<Cuenta> findById(String id);
+
+
     @Query("{id: ?0}")
     Optional<Cuenta> buscarId(String id);
 

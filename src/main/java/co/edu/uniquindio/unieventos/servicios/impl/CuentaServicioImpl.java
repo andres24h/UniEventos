@@ -105,7 +105,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
     @Override
     public String editarCuenta(EditarCuentaDTO cuenta) throws Exception {
-        Optional<Cuenta> cuentaOptional = cuentaRepo.buscarId(cuenta.id());
+        Optional<Cuenta> cuentaOptional = cuentaRepo.findById(cuenta.id());
         if (cuentaOptional.isEmpty()) {
             throw new Exception("No existe la cuenta");
         }
