@@ -45,15 +45,14 @@ public class FiltroToken extends OncePerRequestFilter {
 
             try {
                 //Si la petición es para la ruta /api/cliente se verifica que el token exista y que el rol sea CLIENTE
-                if (requestURI.startsWith("/api/cliente")) {
+                if (requestURI.startsWith("/api/cuenta")) {
                     error = validarToken(token, Rol.CLIENTE);
-                }else {
+                } else {
                     error = false;
                 }
-                if(error){
+                if (error) {
                     crearRespuestaError("No tiene permisos para acceder a este recurso", HttpServletResponse.SC_FORBIDDEN, response);
                 }
-
 
             } catch (MalformedJwtException | SignatureException e) {
                 crearRespuestaError("El token es incorrecto", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response);
@@ -63,14 +62,11 @@ public class FiltroToken extends OncePerRequestFilter {
                 crearRespuestaError(e.getMessage(), HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response);
             }
 
-
             //Si no hay errores se continúa con la petición
             if (!error) {
                 filterChain.doFilter(request, response);
             }
         }
-
-
     }
 
     private String getToken(HttpServletRequest req) {
