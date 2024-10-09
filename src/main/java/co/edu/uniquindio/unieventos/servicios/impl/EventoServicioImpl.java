@@ -1,26 +1,38 @@
 package co.edu.uniquindio.unieventos.servicios.impl;
 
+import co.edu.uniquindio.unieventos.documentos.Cuenta;
 import co.edu.uniquindio.unieventos.documentos.Evento;
 import co.edu.uniquindio.unieventos.dto.evento.*;
+import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EventoServicio;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class EventoServicioImpl implements EventoServicio {
-    @Autowired
-    EventoRepo eventoRepo;
+
+    private final EventoRepo eventoRepo;
+    private final CuentaRepo cuentaRepo;
 
 
     public String crearEvento(CrearEventoDTO crearEventoDTO) throws Exception {
         if (existeNombre(crearEventoDTO.nombre())) {
             throw new Exception("El nombre ya existe, elija otro nombre");
         }
+        Optional<Cuenta> optionalCuenta=cuentaRepo.findById(crearEventoDTO.idUsuario());
+
+        if(optionalCuenta.isEmpty()){
+            throw new Exception("La cuenta no existe");
+        }
+
 
         Evento evento = new Evento();
         evento.setIdUsuario(crearEventoDTO.idUsuario());
@@ -44,7 +56,7 @@ public class EventoServicioImpl implements EventoServicio {
 
     @Override
     public String editarEvento(EditarEventoDTO editarEventoDTO) throws Exception {
-        // Verifica si ya existe un evento con el mismo nombre
+
         if (existeNombre(editarEventoDTO.nombre())) {
             throw new Exception("El nombre ya existe, elija otro nombre");
         }

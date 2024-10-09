@@ -32,11 +32,11 @@ public class ReporteServicioImpl implements ReporteServicio {
         double totalGanancias = 0;
         List<Localidad> localidadesReporte = new ArrayList<>();
 
-        // Calculamos el porcentaje vendido por localidad
+
         for (Localidad localidad : evento.getLocalidades()) {
             int totalVendido = 0;
 
-            // Revisamos todas las órdenes para sumar la cantidad vendida
+
             for (Orden orden : ordenes) {
                 for (DetalleOrden detalle : orden.getItems()) {
                     if (detalle.getNombreLocalidad().equals(localidad.getNombre())) {
@@ -54,7 +54,7 @@ public class ReporteServicioImpl implements ReporteServicio {
         reporte.setLocalidad(localidadesReporte);
         reporte.setGanancias(totalGanancias);
 
-        // Cálculo global de porcentaje de ventas en todas las localidades
+
         double porcentajeTotal = localidadesReporte.stream()
                 .mapToDouble(Localidad::getPorcentajeVenta)
                 .average()
@@ -65,18 +65,17 @@ public class ReporteServicioImpl implements ReporteServicio {
         return reporte;
     }
 
-    // Método que genera el PDF a partir del reporte
-    public void generarPDF(Reporte reporte, OutputStream outputStream) throws Exception {
-        // Crear un PdfWriter
+
+    public void generarPDF(Reporte reporte, OutputStream outputStream) throws Exception {// Crear un PdfWriter
         PdfWriter writer = new PdfWriter(outputStream);
 
-        // Crear un PdfDocument con el writer
+
         PdfDocument pdfDocument = new PdfDocument(writer);
 
-        // Crear un documento con el PdfDocument
+
         Document document = new Document(pdfDocument);
 
-        // Añadir contenido al PDF
+
         document.add(new Paragraph("Reporte de Evento: " + reporte.getEvento().getNombre()));
         document.add(new Paragraph("Fecha de Generación: " + reporte.getFechaGeneracion()));
         document.add(new Paragraph("Porcentaje de Venta Total: " + reporte.getPorcentajeVenta() + "%"));
@@ -87,7 +86,7 @@ public class ReporteServicioImpl implements ReporteServicio {
             document.add(new Paragraph(localidad.getNombre() + ": " + localidad.getPorcentajeVenta() + "% vendido"));
         }
 
-        // Cerrar el documento
+
         document.close();
     }
 

@@ -7,9 +7,10 @@ import co.edu.uniquindio.unieventos.documentos.Ubicacion;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.validation.constraints.NotBlank;
 
 public record EditarEventoDTO(
-        String id,
+        @NotBlank String id,
         String nombre,
         String descripcion,
         String direccion,
@@ -19,6 +20,5 @@ public record EditarEventoDTO(
         List<Localidad> localidades,
         EstadoEvento estado,
         LocalDateTime fecha,
-        Ubicacion ubicacion
-){
+        Ubicacion ubicacion) {
 }

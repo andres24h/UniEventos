@@ -35,6 +35,12 @@ public class CuentaControlador {
     }
 
 
+    @PutMapping("/editar-carrito")
+    public ResponseEntity<MensajeDTO<String>> editarCarrito(@Valid @RequestBody EditarEventoCarritoDTO editarEventoCarritoDTO) throws Exception {
+        cuentaServicio.editarEventoCarrito(editarEventoCarritoDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Cuenta editada exitosamente"));
+    }
+
     @PutMapping("/editar-perfil")
     public ResponseEntity<MensajeDTO<String>> editarCuenta(@Valid @RequestBody EditarCuentaDTO cuenta) throws Exception{
         cuentaServicio.editarCuenta(cuenta);

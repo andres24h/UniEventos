@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record AgregarEventoDTO(
-        @NotBlank int cantidad,
+        @NotNull int cantidad,
         @NotBlank String nombreLocalidad,
-        @NotBlank ObjectId idEvento,
+        @NotNull ObjectId idEvento,
         @NotBlank String idUsuario,
         @NotNull LocalDateTime fecha){
 }

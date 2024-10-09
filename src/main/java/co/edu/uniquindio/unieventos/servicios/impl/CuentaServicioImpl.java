@@ -264,11 +264,6 @@ public class CuentaServicioImpl implements CuentaServicio {
     }
 
 
-    private String encriptarPassword(String password){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode( password );
-    }
-
     @Override
     public String agregarEventoCarrito(AgregarEventoDTO agregarEventoDTO) throws Exception {
         Optional<Cuenta> cuentaOptional = cuentaRepo.findById(agregarEventoDTO.idUsuario());
@@ -374,6 +369,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
     @Override
     public String editarEventoCarrito(EditarEventoCarritoDTO editarEventoCarritoDTO) throws Exception {
+        // Buscar la cuenta del cliente por su ID
         Optional<Cuenta> cuentaOptional = cuentaRepo.findById(editarEventoCarritoDTO.idCliente());
         if (cuentaOptional.isEmpty()) {
             throw new Exception("La cuenta no existe");
@@ -381,6 +377,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         Cuenta cuenta = cuentaOptional.get();
 
+        // Validar que el rol de la cuenta sea CLIENTE y que esté activa
         if (!cuenta.getRol().equals(Rol.CLIENTE)) {
             throw new Exception("El usuario no tiene un carrito asignado");
         }
@@ -393,41 +390,50 @@ public class CuentaServicioImpl implements CuentaServicio {
             throw new Exception("La cuenta está inactiva");
         }
 
+        // Obtener el carrito de compras del cliente
         Carrito carrito = cuenta.getCarrito();
         if (carrito == null || carrito.getItems().isEmpty()) {
             return "El carrito está vacío";
         }
 
+        // Buscar el detalle del carrito a editar, asegurándonos de que se compara como String
         List<DetalleCarrito> detalles = carrito.getItems();
         Optional<DetalleCarrito> detalleCarritoOptional = detalles.stream()
                 .filter(detalle -> detalle.getCodigoDetalle().equals(editarEventoCarritoDTO.idDetalle()))
                 .findFirst();
 
+        // Verificar si el detalle está presente
         if (detalleCarritoOptional.isEmpty()) {
-            throw new Exception("El evento no está en el carrito");
+            throw new Exception("El evento no está en el carrito con el idDetalle: " + editarEventoCarritoDTO.idDetalle());
         }
 
         DetalleCarrito detalleCarrito = detalleCarritoOptional.get();
 
+        // Buscar el evento relacionado con el detalle del carrito
         Optional<Evento> optionalEvento = eventoRepo.findById(detalleCarrito.getIdEvento());
-        if(optionalEvento.isEmpty()){
+        if (optionalEvento.isEmpty()) {
             throw new Exception("El evento no fue encontrado");
         }
 
         Evento evento = optionalEvento.get();
 
+        // Buscar la nueva localidad dentro del evento
         Localidad nuevaLocalidad = evento.getLocalidades().stream()
                 .filter(l -> l.getNombre().equals(editarEventoCarritoDTO.nuevaLocalidad()))
-                .findFirst().orElseThrow(() -> new Exception("La nueva localidad no existe"));
+                .findFirst()
+                .orElseThrow(() -> new Exception("La nueva localidad no existe"));
 
-        if (nuevaLocalidad.cantidadDisponible() < editarEventoCarritoDTO.nuevaCantidad()) {
-            throw new Exception("No hay suficientes entradas disponibles en la nueva localidad. Disponibles: " + nuevaLocalidad.cantidadDisponible());
+        // Validar que haya suficientes entradas disponibles en la nueva localidad
+        int disponibles = nuevaLocalidad.getCapacidadMaxima() - nuevaLocalidad.getEntradasVendidas();
+        if (disponibles < editarEventoCarritoDTO.nuevaCantidad()) {
+            throw new Exception("No hay suficientes entradas disponibles en la nueva localidad. Disponibles: " + disponibles);
         }
 
-
+        // Actualizar los detalles del carrito con la nueva localidad y cantidad
         detalleCarrito.setNombreLocalidad(editarEventoCarritoDTO.nuevaLocalidad());
         detalleCarrito.setCantidad(editarEventoCarritoDTO.nuevaCantidad());
 
+        // Guardar los cambios en la cuenta
         cuentaRepo.save(cuenta);
 
         return "Evento en el carrito editado con éxito";
@@ -472,5 +478,10 @@ public class CuentaServicioImpl implements CuentaServicio {
         }
         return codigo.toString();
     }
+    private String encriptarPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode( password );
+    }
+
 
 }

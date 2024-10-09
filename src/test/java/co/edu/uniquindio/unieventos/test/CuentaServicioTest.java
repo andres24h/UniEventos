@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class CuentaServicioTest {
         admin1.setRol(Rol.ADMINISTRADOR);
         admin1.setEstado(EstadoCuenta.ACTIVO);
         admin1.setEmail("admin1@domain.com");
-        admin1.setPassword("password1");
+        String passwordEncriptada =encriptarPassword("password1");
+        admin1.setPassword(passwordEncriptada);
         admin1.setFechaRegistro(LocalDateTime.now());
         admin1.setUsuario(new Usuario("Admin1", "Calle 1", Arrays.asList("1111111111")));
 
@@ -46,7 +48,8 @@ public class CuentaServicioTest {
         admin2.setRol(Rol.ADMINISTRADOR);
         admin2.setEstado(EstadoCuenta.ACTIVO);
         admin2.setEmail("admin2@domain.com");
-        admin2.setPassword("password2");
+        String passwordEncriptada2 =encriptarPassword("password2");
+        admin2.setPassword(passwordEncriptada2);
         admin2.setFechaRegistro(LocalDateTime.now());
         admin2.setUsuario(new Usuario("Admin2", "Calle 2", Arrays.asList("2222222222")));
 
@@ -56,7 +59,8 @@ public class CuentaServicioTest {
         admin3.setRol(Rol.ADMINISTRADOR);
         admin3.setEstado(EstadoCuenta.ACTIVO);
         admin3.setEmail("admin3@domain.com");
-        admin3.setPassword("password3");
+        String passwordEncriptada3 =encriptarPassword("password3");
+        admin3.setPassword(passwordEncriptada3);
         admin3.setFechaRegistro(LocalDateTime.now());
         admin3.setUsuario(new Usuario("Admin3", "Calle 3", Arrays.asList("3333333333")));
 
@@ -227,6 +231,11 @@ public class CuentaServicioTest {
         List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();
 
         assertEquals(3, lista.size());
+    }
+
+    private String encriptarPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode( password );
     }
 
 }

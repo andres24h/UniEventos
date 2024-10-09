@@ -14,14 +14,14 @@ public class ImagenesControlador {
 
     private final ImagenesServicio imagenesServicio;
 
-    @PostMapping("/subir")
+    @PostMapping("/subir-imagen")
     public ResponseEntity<MensajeDTO<String>> subir(@RequestParam("imagen") MultipartFile imagen) throws Exception{
         String respuesta = imagenesServicio.subirImagen(imagen);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, respuesta));
     }
 
 
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/eliminar-imagen")
     public ResponseEntity<MensajeDTO<String>> eliminar(@RequestParam("idImagen") String
                                                                    idImagen)  throws Exception{
         imagenesServicio.eliminarImagen( idImagen );
