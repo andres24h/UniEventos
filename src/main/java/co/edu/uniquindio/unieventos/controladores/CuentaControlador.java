@@ -1,8 +1,10 @@
 package co.edu.uniquindio.unieventos.controladores;
 
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
+import co.edu.uniquindio.unieventos.dto.cupon.RedimirCuponDTO;
 import co.edu.uniquindio.unieventos.dto.global.MensajeDTO;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
+import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/cuenta")
 public class CuentaControlador {
     private final CuentaServicio cuentaServicio;
+    private final CuponServicio cuponServicio;
 
 
     @PostMapping("/carrito-agregar")
@@ -55,5 +58,12 @@ public class CuentaControlador {
         List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
+
+    @PostMapping("/redimir-cupon")
+    public ResponseEntity<MensajeDTO<String>> redimirCupon(@Valid @RequestBody RedimirCuponDTO redimirCuponDTO) throws Exception {
+        boolean redimido = cuponServicio.redimirCupon(redimirCuponDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, redimido ? "Cupón redimido exitosamente" : "No se pudo redimir el cupón"));
+    }
+
 }
 

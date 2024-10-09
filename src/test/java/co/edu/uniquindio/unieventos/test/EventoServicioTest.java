@@ -53,10 +53,7 @@ public class EventoServicioTest {
     localidadades.add(localidad2);
     localidadades.add(localidad3);
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 
         CrearEventoDTO crearEventoDTO = new CrearEventoDTO(
                 "1",

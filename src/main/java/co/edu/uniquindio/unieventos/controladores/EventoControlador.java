@@ -12,11 +12,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin")
+@RequestMapping("/api/evento")
 public class EventoControlador {
     private final EventoServicio eventoServicio;
 
-<<<<<<< Updated upstream
+/**
+ *
+ * @param
+ * @return
+ * @throws Exception
+
 
     @PostMapping("/crear-evento")
     public ResponseEntity<MensajeDTO<String>> crearEvento(@Valid @RequestBody CrearEventoDTO crearEventoDTO) throws Exception {
@@ -36,11 +41,8 @@ public class EventoControlador {
         String resultado = eventoServicio.eliminarEvento(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
-=======
 
->>>>>>> Stashed changes
-
-
+ */
     @GetMapping("/obtener-evento/{id}")
     public ResponseEntity<MensajeDTO<InformacionEventoDTO>> obtenerInformacionEvento(@PathVariable String id) throws Exception {
         InformacionEventoDTO info = eventoServicio.obtenerInformacionEvento(id);

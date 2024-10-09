@@ -33,22 +33,21 @@ public class AdministradorControlador {
     private final OrdenRepo ordenRepo;
     private final ReporteServicio reporteServicio;
 
-    // Métodos para eventos
-    // Método para crear un evento
+
     @PostMapping("/crear-evento")
     public ResponseEntity<MensajeDTO<String>> crearEvento(@Valid @RequestBody CrearEventoDTO crearEventoDTO) throws Exception {
         String resultado = eventoServicio.crearEvento(crearEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
-    // Método para editar un evento
+
     @PutMapping("/editar-evento")
     public ResponseEntity<MensajeDTO<String>> editarEvento(@Valid @RequestBody EditarEventoDTO editarEventoDTO) throws Exception {
         String resultado = eventoServicio.editarEvento(editarEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
-    // Método para eliminar un evento
+
     @DeleteMapping("/eliminar-evento/{id}")
     public ResponseEntity<MensajeDTO<String>> eliminarEvento(@PathVariable String id) throws Exception {
         String resultado = eventoServicio.eliminarEvento(id);
@@ -56,21 +55,21 @@ public class AdministradorControlador {
     }
     // Métodos para cupon
     // Método para crear cupones
-    @PostMapping("/crear")
+    @PostMapping("/crear-cupon")
     public ResponseEntity<MensajeDTO<String>> crearCupon(@Valid @RequestBody CrearCuponDTO cuponDTO) throws Exception {
         String resultado = cuponServicio.crearCupones(cuponDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
     // Método para actualizar un cupón
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizar-cupon")
     public ResponseEntity<MensajeDTO<String>> actualizarCupon(@Valid @RequestBody ActualizarCuponDTO cuponDTO) throws Exception {
         String resultado = cuponServicio.actualizarCupon(cuponDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
     // Método para borrar un cupón
-    @DeleteMapping("/borrar/{idCupon}")
+    @DeleteMapping("/borrar-cupon/{idCupon}")
     public ResponseEntity<MensajeDTO<String>> borrarCupon(@PathVariable String idCupon) {
         cuponServicio.borrarCupon(idCupon);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cupón eliminado exitosamente"));
