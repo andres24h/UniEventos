@@ -171,8 +171,8 @@ public class CuentaServicioImpl implements CuentaServicio {
     }
 
     @Override
-    public String enviarCodigoRecuperacionPassword(String correo) throws Exception {
-        Optional<Cuenta> cuentaOptional = cuentaRepo.buscarEmail(correo);
+    public String enviarCodigoRecuperacionPassword(CodigoPasswordDTO codigoPasswordDTO) throws Exception {
+        Optional<Cuenta> cuentaOptional = cuentaRepo.buscarEmail(codigoPasswordDTO.email());
 
         if (cuentaOptional.isEmpty()) {
             throw new Exception("El correo dado no se encuentra registrado");
@@ -189,7 +189,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         cuenta.setCodigoValidacionPassword(new CodigoValidacion(codigoValidacion,
                 LocalDateTime.now()));
-        EmailDTO email=new EmailDTO("codigo recuperacion password","ingrese solo el codigo:"+cuenta.getCodigoValidacionPassword(),correo);
+        EmailDTO email=new EmailDTO("codigo recuperacion password","ingrese solo el codigo:"+cuenta.getCodigoValidacionPassword(),codigoPasswordDTO.email());
         emailServicio.enviarCorreo(email);
         cuentaRepo.save(cuenta);
 

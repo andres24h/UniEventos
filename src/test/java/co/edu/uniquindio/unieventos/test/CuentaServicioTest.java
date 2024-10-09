@@ -1,6 +1,11 @@
 package co.edu.uniquindio.unieventos.test;
 
+import co.edu.uniquindio.unieventos.documentos.Cuenta;
+import co.edu.uniquindio.unieventos.documentos.EstadoCuenta;
+import co.edu.uniquindio.unieventos.documentos.Rol;
+import co.edu.uniquindio.unieventos.documentos.Usuario;
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
+import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
@@ -9,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +24,52 @@ public class CuentaServicioTest {
 
     @Autowired
     private CuentaServicio cuentaServicio;
+
+    @Autowired
+    private CuentaRepo cuentaRepo;
+
+    @Test
+    public void crearAdministradoresTest() {
+
+        Cuenta admin1 = new Cuenta();
+        admin1.setId("Admin1");
+        admin1.setRol(Rol.ADMINISTRADOR);
+        admin1.setEstado(EstadoCuenta.ACTIVO);
+        admin1.setEmail("admin1@domain.com");
+        admin1.setPassword("password1");
+        admin1.setFechaRegistro(LocalDateTime.now());
+        admin1.setUsuario(new Usuario("Admin1", "Calle 1", Arrays.asList("1111111111")));
+
+
+        Cuenta admin2 = new Cuenta();
+        admin2.setId("Admin2");
+        admin2.setRol(Rol.ADMINISTRADOR);
+        admin2.setEstado(EstadoCuenta.ACTIVO);
+        admin2.setEmail("admin2@domain.com");
+        admin2.setPassword("password2");
+        admin2.setFechaRegistro(LocalDateTime.now());
+        admin2.setUsuario(new Usuario("Admin2", "Calle 2", Arrays.asList("2222222222")));
+
+
+        Cuenta admin3 = new Cuenta();
+        admin3.setId("Admin3");
+        admin3.setRol(Rol.ADMINISTRADOR);
+        admin3.setEstado(EstadoCuenta.ACTIVO);
+        admin3.setEmail("admin3@domain.com");
+        admin3.setPassword("password3");
+        admin3.setFechaRegistro(LocalDateTime.now());
+        admin3.setUsuario(new Usuario("Admin3", "Calle 3", Arrays.asList("3333333333")));
+
+
+        cuentaRepo.save(admin1);
+        cuentaRepo.save(admin2);
+        cuentaRepo.save(admin3);
+
+
+        assertNotNull(cuentaRepo.findById("Admin1"));
+        assertNotNull(cuentaRepo.findById("Admin2"));
+        assertNotNull(cuentaRepo.findById("Admin3"));
+    }
 
 
     @Test
@@ -85,10 +137,10 @@ public class CuentaServicioTest {
 
     @Test
     public void enviarCodigoRecuperacionPasswordTest() {
-        String correo = "luisc.moralesc@uqvirtual.edu.co";
+        CodigoPasswordDTO codigoPasswordDTO=new CodigoPasswordDTO("luisc.moralesc@uqvirtual.edu.co");
 
         assertDoesNotThrow(() -> {
-            String resultado = cuentaServicio.enviarCodigoRecuperacionPassword(correo);
+            String resultado = cuentaServicio.enviarCodigoRecuperacionPassword(codigoPasswordDTO);
             assertEquals("se ha enviado un correo de validacion", resultado);  // Verifica que el mensaje sea el esperado
         });
     }

@@ -34,6 +34,7 @@ public class EventoServicioImpl implements EventoServicio {
         evento.setTipo(crearEventoDTO.tipo());
         evento.setFecha(crearEventoDTO.fecha());
         evento.setLocalidades(crearEventoDTO.localidades());
+        evento.setUbicacion(crearEventoDTO.ubicacion());
 
 
         eventoRepo.save(evento);
@@ -91,7 +92,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getTipo(),
                 evento.getLocalidades(),
                 evento.getEstado(),
-                evento.getFecha()
+                evento.getFecha(),
+                evento.getUbicacion()
         );
     }
 

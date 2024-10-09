@@ -18,14 +18,14 @@ public class CuentaControlador {
     private final CuentaServicio cuentaServicio;
 
 
-    @PostMapping("/carrito/agregar")
+    @PostMapping("/carrito-agregar")
     public ResponseEntity<MensajeDTO<String>> agregarEventoCarrito(@Valid @RequestBody AgregarEventoDTO agregarEventoDTO) throws Exception {
         String resultado = cuentaServicio.agregarEventoCarrito(agregarEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
 
-    @DeleteMapping("/carrito/eliminar")
+    @DeleteMapping("/carrito-eliminar")
     public ResponseEntity<MensajeDTO<String>> eliminarEventoCarrito(@Valid @RequestBody EliminarEventoDTO eliminarEventoDTO) throws Exception {
         String resultado = cuentaServicio.eliminarEventoCarrito(eliminarEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));

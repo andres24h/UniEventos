@@ -3,6 +3,7 @@ package co.edu.uniquindio.unieventos.test;
 import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
 import co.edu.uniquindio.unieventos.documentos.Localidad;
 import co.edu.uniquindio.unieventos.documentos.TipoEvento;
+import co.edu.uniquindio.unieventos.documentos.Ubicacion;
 import co.edu.uniquindio.unieventos.dto.evento.*;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EventoServicio;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,8 @@ public class EventoServicioTest {
     localidadades.add(localidad1);
     localidadades.add(localidad2);
     localidadades.add(localidad3);
+
+    Ubicacion ubicacion=new Ubicacion();
 
         CrearEventoDTO crearEventoDTO = new CrearEventoDTO(
                 "1",

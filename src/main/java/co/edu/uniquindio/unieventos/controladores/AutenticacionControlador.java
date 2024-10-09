@@ -35,8 +35,8 @@ public class AutenticacionControlador {
     }
 
     @PostMapping("/recuperar-password")
-    public ResponseEntity<MensajeDTO<String>> enviarCodigoRecuperacionPassword(@RequestParam String correo) throws Exception {
-        String resultado = cuentaServicio.enviarCodigoRecuperacionPassword(correo);
+    public ResponseEntity<MensajeDTO<String>> enviarCodigoRecuperacionPassword(@Valid @RequestBody CodigoPasswordDTO codigoPasswordDTO) throws Exception {
+        String resultado = cuentaServicio.enviarCodigoRecuperacionPassword(codigoPasswordDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 

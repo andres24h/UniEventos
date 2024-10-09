@@ -18,6 +18,7 @@ public record EditarEventoDTO(
         TipoEvento tipo,
         List<Localidad> localidades,
         EstadoEvento estado,
-        LocalDateTime fecha
+        LocalDateTime fecha,
+        Ubicacion ubicacion
 ){
 }
