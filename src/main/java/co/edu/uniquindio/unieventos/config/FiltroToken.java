@@ -35,39 +35,41 @@ public class FiltroToken extends OncePerRequestFilter {
 
         if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
-        }else {
-            //Obtener la URI de la petición que se está realizando
+        } else {
+
             String requestURI = request.getRequestURI();
 
-            //Se obtiene el token de la petición del encabezado del mensaje HTTP
             String token = getToken(request);
-            boolean error = true;
+            boolean error = false;
 
             try {
-                //Si la petición es para la ruta /api/cliente se verifica que el token exista y que el rol sea CLIENTE
-                if (requestURI.startsWith("/api/cuenta")) {
+
+                if (requestURI.startsWith("/api/admin")) {
+                    error = validarToken(token, Rol.ADMINISTRADOR);
+                } else if (requestURI.startsWith("/api/cuenta")) {
                     error = validarToken(token, Rol.CLIENTE);
-                } else {
-                    error = false;
                 }
+                
                 if (error) {
                     crearRespuestaError("No tiene permisos para acceder a este recurso", HttpServletResponse.SC_FORBIDDEN, response);
+                    return;
                 }
 
             } catch (MalformedJwtException | SignatureException e) {
                 crearRespuestaError("El token es incorrecto", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response);
+                return;
             } catch (ExpiredJwtException e) {
                 crearRespuestaError("El token está vencido", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response);
+                return;
             } catch (Exception e) {
                 crearRespuestaError(e.getMessage(), HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response);
+                return;
             }
 
-            //Si no hay errores se continúa con la petición
-            if (!error) {
-                filterChain.doFilter(request, response);
-            }
+            filterChain.doFilter(request, response);
         }
     }
+
 
     private String getToken(HttpServletRequest req) {
         String header = req.getHeader("Authorization");
@@ -96,9 +98,4 @@ public class FiltroToken extends OncePerRequestFilter {
         }
         return error;
     }
-
-
-
-
-
 }
