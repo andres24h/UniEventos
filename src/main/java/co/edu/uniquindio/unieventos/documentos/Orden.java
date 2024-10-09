@@ -27,5 +27,4 @@ public class Orden implements Serializable {
     private double total;
     private LocalDateTime fecha;
     private List<DetalleOrden> items;
-
 }

@@ -13,6 +13,7 @@ public interface OrdenServicio {
     void recibirNotificacionMercadoPago(Map<String, Object> request);
     String crearOrden(CrearOrdenDTO crearOrdenDTO)throws Exception;
     Orden obtenerOrden(String idOrden)throws Exception;
+    List<ItemOrdenDTO> listOrdenByEvento(String idEvento);
     List<ItemOrdenDTO> listOrdenByUsuario(String idUsuario);
     void cancelarOrden(String idOrden)throws Exception;
     void procesarPago(String noclaro);

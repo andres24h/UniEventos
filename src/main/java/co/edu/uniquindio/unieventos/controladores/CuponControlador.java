@@ -16,6 +16,7 @@ import java.util.List;
 public class CuponControlador {
     private final CuponServicio cuponServicio;
 
+<<<<<<< Updated upstream
 
     @PostMapping("/crear")
     public ResponseEntity<MensajeDTO<String>> crearCupon(@Valid @RequestBody CrearCuponDTO cuponDTO) throws Exception {
@@ -36,6 +37,9 @@ public class CuponControlador {
         cuponServicio.borrarCupon(idCupon);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cupón eliminado exitosamente"));
     }
+=======
+
+>>>>>>> Stashed changes
 
 
     @PostMapping("/redimir")

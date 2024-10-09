@@ -145,6 +145,11 @@ public class EventoServicioImpl implements EventoServicio {
         return evento.getIdUsuario();
     }
 
+    @Override
+    public Evento obtenerEvento(String id) throws Exception {
+        return eventoRepo.findById(id).orElseThrow(() -> new Exception("No existe el evento"));
+    }
+
     public boolean existeId(String id){
         return eventoRepo.findById(id).isPresent();
     }

@@ -21,6 +21,7 @@ import com.mercadopago.client.preference.PreferenceItemRequest;
 import com.mercadopago.client.preference.PreferenceRequest;
 import com.mercadopago.resources.payment.Payment;
 import com.mercadopago.resources.preference.Preference;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -215,12 +216,12 @@ import java.util.Optional;
                 detallesOrden.add(detalleOrden);
 
 
-                total += localidad.getPrecio() * itemCarrito.getCantidad();
+                total += (float) (localidad.getPrecio() * itemCarrito.getCantidad());
             }
 
             if (cuponRedimido) {
                 double descuento = cupon.getDescuento();
-                total -= total * (descuento / 100);
+                total -= (float) (total * (descuento / 100));
             }
             orden.setItems(detallesOrden);
             orden.setTotal(total);
@@ -233,11 +234,23 @@ import java.util.Optional;
 
         @Override
         public Orden obtenerOrden(String idOrden) throws Exception {
-            Orden orden = ordenRepo.findById(idOrden)
-                    .orElseThrow(() -> new Exception("La orden no fue encontrada"));
 
-            return orden;
+            return ordenRepo.findById(idOrden)
+                    .orElseThrow(() -> new Exception("La orden no fue encontrada"));
         }
+
+    @Override
+    public List<ItemOrdenDTO> listOrdenByEvento(String idEvento) {
+        List<Orden> ordenes = ordenRepo.findByItemsIdEvento(idEvento);
+
+        return ordenes.stream().map(orden -> new ItemOrdenDTO(
+                orden.getIdCliente(),
+                orden.getIdCupon(),
+                orden.getTotal(),
+                orden.getFecha(),
+                orden.getItems()
+        )).toList();
+    }
 
 
     @Override
@@ -305,10 +318,8 @@ import java.util.Optional;
         return pago;
     }
 
-
     @Override
     public String generarQRC(String idOrden) {
         return "";
     }
 }
-

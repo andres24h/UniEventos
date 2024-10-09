@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface OrdenRepo extends MongoRepository<Orden, String> {
@@ -16,5 +17,6 @@ public interface OrdenRepo extends MongoRepository<Orden, String> {
             "{ $project: { fecha: '$fecha', estado: '$estado', pago: '$pago', nombreUsuario: '$usuario.nombre', correoUsuario: '$usuario.email' } }"
     })
     List<ItemOrdenDTO> listarOrdenes(String codigoCliente);
-    List<Orden> findByIdCliente(String idCliente);
+    Optional<Orden> findByIdCliente(String idCliente);
+    List<Orden> findByItemsIdEvento(String items_idEvento);
 }

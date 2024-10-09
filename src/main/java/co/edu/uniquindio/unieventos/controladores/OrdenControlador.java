@@ -74,4 +74,11 @@ public class OrdenControlador {
         String qrCode = ordenServicio.generarQRC(idOrden);
         return ResponseEntity.ok(new MensajeDTO<>(false, qrCode));
     }
+
+    @GetMapping("/api/ordenes/evento/{idEvento}")
+    public ResponseEntity<List<Orden>> obtenerOrdenesPorEvento(@PathVariable String idEvento) {
+        List<ItemOrdenDTO> ordenes = ordenServicio.listOrdenByEvento(idEvento);
+        return ResponseEntity.ok().build();
+    }
+
 }

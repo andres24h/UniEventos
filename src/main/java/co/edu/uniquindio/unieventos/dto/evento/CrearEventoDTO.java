@@ -20,6 +20,5 @@ public record CrearEventoDTO(
         List<Localidad> localidades,
         EstadoEvento estado,
         LocalDateTime fecha,
-        Ubicacion ubicacion
-        ) {
+        Ubicacion ubicacion) {
 }

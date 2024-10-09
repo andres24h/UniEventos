@@ -16,6 +16,7 @@ import java.util.List;
 public class EventoControlador {
     private final EventoServicio eventoServicio;
 
+<<<<<<< Updated upstream
 
     @PostMapping("/crear-evento")
     public ResponseEntity<MensajeDTO<String>> crearEvento(@Valid @RequestBody CrearEventoDTO crearEventoDTO) throws Exception {
@@ -35,6 +36,9 @@ public class EventoControlador {
         String resultado = eventoServicio.eliminarEvento(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
+=======
+
+>>>>>>> Stashed changes
 
 
     @GetMapping("/obtener-evento/{id}")

@@ -23,8 +23,10 @@ public class Localidad implements Serializable {
     private double precio;
     private int entradasVendidas;
     private int capacidadMaxima;
+    private double porcentajeVenta;
 
     public int cantidadDisponible() {
         return capacidadMaxima - entradasVendidas;
     }
+
 }

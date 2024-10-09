@@ -23,6 +23,7 @@ public class EventoServicioTest {
     private EventoServicio eventoServicio;
 
 
+    Ubicacion ubicacion = new Ubicacion( 111111.0 , 111111.0 );
     @Test
     public void crearEventoTest() {
 
@@ -52,7 +53,10 @@ public class EventoServicioTest {
     localidadades.add(localidad2);
     localidadades.add(localidad3);
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
         CrearEventoDTO crearEventoDTO = new CrearEventoDTO(
                 "1",
@@ -65,7 +69,8 @@ public class EventoServicioTest {
                 TipoEvento.CONCIERTO,
                 localidadades,
                 EstadoEvento.ACTIVO,
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                ubicacion
         );
 
         assertDoesNotThrow(() -> {
@@ -108,8 +113,8 @@ public class EventoServicioTest {
                 TipoEvento.CONCIERTO,
                 localidadades,
                 EstadoEvento.ACTIVO,
-                LocalDateTime.now()
-
+                LocalDateTime.now(),
+                ubicacion
         );
 
         assertDoesNotThrow(() -> {
