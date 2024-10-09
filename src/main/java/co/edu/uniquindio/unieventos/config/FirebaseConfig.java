@@ -13,11 +13,11 @@ public class FirebaseConfig{
     @Bean
     public FirebaseApp intializeFirebase() throws IOException {
         FileInputStream serviceAccount = new FileInputStream(
-                "src/main/resources/proyecto-33d70-firebase-adminsdk-6zo39-85133a6952.json"
+                "src/main/resources/programacion-a5156-firebase-adminsdk-j2c6w-00a0167936.json"
         );
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setStorageBucket("proyecto-33d70.appspot.com")
+                .setStorageBucket("programacion-a5156.appspot.com")
                 .build();
 
         if(FirebaseApp.getApps().isEmpty()) {
