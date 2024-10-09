@@ -200,6 +200,28 @@ public class CuentaServicioTest {
     }
 
     @Test
+    public void editarEventoCarritoTest() {
+        String idCliente = "1091884230";
+        String idDetalle = "66f8a476e6f00716b3b59ece";
+        String nuevaLocalidad = "VIP";
+        int nuevaCantidad = 2;
+
+
+        EditarEventoCarritoDTO editarEventoCarritoDTO = new EditarEventoCarritoDTO(
+                idCliente,
+                idDetalle,
+                nuevaLocalidad,
+                nuevaCantidad
+        );
+
+        assertDoesNotThrow(() -> {
+            String resultado = cuentaServicio.editarEventoCarrito(editarEventoCarritoDTO);
+            assertEquals("Evento en el carrito editado con éxito", resultado); // Verifica que el evento se edite correctamente
+        });
+    }
+
+
+    @Test
     public void listarTest(){
 
         List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();

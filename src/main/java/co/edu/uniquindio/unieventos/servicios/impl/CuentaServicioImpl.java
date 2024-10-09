@@ -4,6 +4,7 @@ import co.edu.uniquindio.unieventos.config.JWTUtils;
 import co.edu.uniquindio.unieventos.documentos.*;
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.dto.email.EmailDTO;
+import co.edu.uniquindio.unieventos.dto.evento.EditarEventoDTO;
 import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
@@ -327,6 +328,8 @@ public class CuentaServicioImpl implements CuentaServicio {
     }
 
 
+
+
     @Override
     public String eliminarEventoCarrito(EliminarEventoDTO eliminarEventoDTO) throws Exception {
         Optional<Cuenta> cuentaOptional = cuentaRepo.findById(eliminarEventoDTO.idCliente());
@@ -368,6 +371,68 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         return "Evento eliminado del carrito correctamente";
     }
+
+    @Override
+    public String editarEventoCarrito(EditarEventoCarritoDTO editarEventoCarritoDTO) throws Exception {
+        Optional<Cuenta> cuentaOptional = cuentaRepo.findById(editarEventoCarritoDTO.idCliente());
+        if (cuentaOptional.isEmpty()) {
+            throw new Exception("La cuenta no existe");
+        }
+
+        Cuenta cuenta = cuentaOptional.get();
+
+        if (!cuenta.getRol().equals(Rol.CLIENTE)) {
+            throw new Exception("El usuario no tiene un carrito asignado");
+        }
+
+        if (cuenta.getEstado().equals(EstadoCuenta.ELIMINADO)) {
+            throw new Exception("La cuenta ha sido eliminada");
+        }
+
+        if (cuenta.getEstado().equals(EstadoCuenta.INACTIVO)) {
+            throw new Exception("La cuenta está inactiva");
+        }
+
+        Carrito carrito = cuenta.getCarrito();
+        if (carrito == null || carrito.getItems().isEmpty()) {
+            return "El carrito está vacío";
+        }
+
+        List<DetalleCarrito> detalles = carrito.getItems();
+        Optional<DetalleCarrito> detalleCarritoOptional = detalles.stream()
+                .filter(detalle -> detalle.getCodigoDetalle().equals(editarEventoCarritoDTO.idDetalle()))
+                .findFirst();
+
+        if (detalleCarritoOptional.isEmpty()) {
+            throw new Exception("El evento no está en el carrito");
+        }
+
+        DetalleCarrito detalleCarrito = detalleCarritoOptional.get();
+
+        Optional<Evento> optionalEvento = eventoRepo.findById(detalleCarrito.getIdEvento());
+        if(optionalEvento.isEmpty()){
+            throw new Exception("El evento no fue encontrado");
+        }
+
+        Evento evento = optionalEvento.get();
+
+        Localidad nuevaLocalidad = evento.getLocalidades().stream()
+                .filter(l -> l.getNombre().equals(editarEventoCarritoDTO.nuevaLocalidad()))
+                .findFirst().orElseThrow(() -> new Exception("La nueva localidad no existe"));
+
+        if (nuevaLocalidad.cantidadDisponible() < editarEventoCarritoDTO.nuevaCantidad()) {
+            throw new Exception("No hay suficientes entradas disponibles en la nueva localidad. Disponibles: " + nuevaLocalidad.cantidadDisponible());
+        }
+
+
+        detalleCarrito.setNombreLocalidad(editarEventoCarritoDTO.nuevaLocalidad());
+        detalleCarrito.setCantidad(editarEventoCarritoDTO.nuevaCantidad());
+
+        cuentaRepo.save(cuenta);
+
+        return "Evento en el carrito editado con éxito";
+    }
+
 
     @Override
     public List<ItemCuentaDTO> listarCuentas() {

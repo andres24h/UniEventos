@@ -52,7 +52,7 @@ public class EventoServicioTest {
     localidadades.add(localidad2);
     localidadades.add(localidad3);
 
-    Ubicacion ubicacion=new Ubicacion();
+
 
         CrearEventoDTO crearEventoDTO = new CrearEventoDTO(
                 "1",

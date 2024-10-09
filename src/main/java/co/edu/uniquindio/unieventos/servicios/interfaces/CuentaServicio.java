@@ -31,6 +31,8 @@ public interface CuentaServicio {
 
     String eliminarEventoCarrito(EliminarEventoDTO eliminarEventoDTO)throws Exception;
 
+    String editarEventoCarrito(EditarEventoCarritoDTO editarEventoCarritoDTO)throws Exception;
+
     List<ItemCuentaDTO> listarCuentas();
 
 }
