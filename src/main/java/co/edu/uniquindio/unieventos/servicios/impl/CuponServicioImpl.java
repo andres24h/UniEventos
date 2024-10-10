@@ -121,6 +121,9 @@ public class CuponServicioImpl implements CuponServicio {
         if(cupon.getEstado().equals(EstadoCupon.NO_DISPONIBLE)){
             throw new Exception("El cupon no se encuentra disponible");
         }
+        if(cupon.getBeneficiarios()==null){
+            cupon.setBeneficiarios(new ArrayList<>());
+        }
 
         if(cupon.getTipo().equals(TipoCupon.UNICO)){
             List<String> beneficiarios = cupon.getBeneficiarios();
@@ -154,6 +157,7 @@ public class CuponServicioImpl implements CuponServicio {
         }
 
         List<String> beneficiarios = cupon.getBeneficiarios();
+
         if (!beneficiarios.contains(revertirCuponDTO.idCliente())) {
             beneficiarios.add(revertirCuponDTO.idCliente());
             cupon.setBeneficiarios(beneficiarios);
