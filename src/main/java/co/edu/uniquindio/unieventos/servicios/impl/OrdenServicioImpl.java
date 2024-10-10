@@ -83,7 +83,7 @@ import java.util.Optional;
             }
 
 
-            MercadoPagoConfig.setAccessToken("ACCESS_TOKEN");
+            MercadoPagoConfig.setAccessToken("TEST-7107058101707123-100921-388dd4d81549503dc712a8dd94023d6f-472453342");
 
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
                     .success("URL_PAGO_EXITOSO")
