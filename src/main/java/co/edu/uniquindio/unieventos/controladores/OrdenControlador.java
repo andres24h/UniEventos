@@ -29,10 +29,10 @@ public class OrdenControlador {
 
 
     @PostMapping("/notificacion")
-    public ResponseEntity<Void> recibirNotificacionMercadoPago(@RequestBody Map<String, Object> request) {
-        ordenServicio.recibirNotificacionMercadoPago(request);
-        return ResponseEntity.ok().build();
+    public void recibirNotificacionMercadoPago(@RequestBody Map<String, Object> requestBody) {
+        ordenServicio.recibirNotificacionMercadoPago(requestBody);
     }
+
 
 
     @PostMapping("/crear")
