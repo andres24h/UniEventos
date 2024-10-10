@@ -63,18 +63,6 @@ public class OrdenControlador {
     }
 
 
-    @PostMapping("/procesar-pago")
-    public ResponseEntity<Void> procesarPago(@RequestParam String noclaro) {
-        ordenServicio.procesarPago(noclaro);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/generar-qr/{idOrden}")
-    public ResponseEntity<MensajeDTO<String>> generarQRC(@PathVariable String idOrden) {
-        String qrCode = ordenServicio.generarQRC(idOrden);
-        return ResponseEntity.ok(new MensajeDTO<>(false, qrCode));
-    }
-
     @GetMapping("/ordenes-evento/{idEvento}")
     public ResponseEntity<List<Orden>> obtenerOrdenesPorEvento(@PathVariable String idEvento) {
         List<ItemOrdenDTO> ordenes = ordenServicio.listOrdenByEvento(idEvento);

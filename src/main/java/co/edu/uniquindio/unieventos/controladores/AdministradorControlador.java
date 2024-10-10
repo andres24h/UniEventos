@@ -53,15 +53,14 @@ public class AdministradorControlador {
         String resultado = eventoServicio.eliminarEvento(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
-    // Métodos para cupon
-    // Método para crear cupones
+
     @PostMapping("/crear-cupon")
     public ResponseEntity<MensajeDTO<String>> crearCupon(@Valid @RequestBody CrearCuponDTO cuponDTO) throws Exception {
         String resultado = cuponServicio.crearCupones(cuponDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
-    // Método para actualizar un cupón
+
     @PutMapping("/actualizar-cupon")
     public ResponseEntity<MensajeDTO<String>> actualizarCupon(@Valid @RequestBody ActualizarCuponDTO cuponDTO) throws Exception {
         String resultado = cuponServicio.actualizarCupon(cuponDTO);
@@ -70,7 +69,7 @@ public class AdministradorControlador {
 
     // Método para borrar un cupón
     @DeleteMapping("/borrar-cupon/{idCupon}")
-    public ResponseEntity<MensajeDTO<String>> borrarCupon(@PathVariable String idCupon) {
+    public ResponseEntity<MensajeDTO<String>> borrarCupon(@PathVariable String idCupon) throws Exception {
         cuponServicio.borrarCupon(idCupon);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cupón eliminado exitosamente"));
     }

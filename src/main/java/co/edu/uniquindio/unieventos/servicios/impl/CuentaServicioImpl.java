@@ -3,11 +3,14 @@ package co.edu.uniquindio.unieventos.servicios.impl;
 import co.edu.uniquindio.unieventos.config.JWTUtils;
 import co.edu.uniquindio.unieventos.documentos.*;
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
+import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
 import co.edu.uniquindio.unieventos.dto.email.EmailDTO;
 import co.edu.uniquindio.unieventos.dto.evento.EditarEventoDTO;
 import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
+import co.edu.uniquindio.unieventos.repositorios.CuponRepo;
 import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
+import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
 import co.edu.uniquindio.unieventos.servicios.interfaces.EmailServicio;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +37,8 @@ public class CuentaServicioImpl implements CuentaServicio {
     private final JWTUtils jwtUtils;
     private final EmailServicio emailServicio;
     private final EventoRepo eventoRepo;
+    private final CuponServicio cuponServicio;
+
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
@@ -95,8 +100,13 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         }
 
+        List<String> b=new ArrayList<>();
+        b.add(cuenta.getId());
+        String codigoCupon= cuponServicio.crearCupones(new CrearCuponDTO("Cupon R-1","Codigo de bienvenida",15,LocalDateTime.now().plusYears(2),TipoCupon.INDIVIDUAL,b));
+        emailServicio.enviarCorreo(new EmailDTO("Bienvenido a UniEventos, te regalamos un cupon de bienvenida con 15% ","Esta es tu codigo:"+codigoCupon,cuenta.getEmail()));
         cuenta.setEstado(EstadoCuenta.ACTIVO);
         cuenta.setCodigoValidacionRegistro(null);
+
         cuentaRepo.save(cuenta);
 
         return true;

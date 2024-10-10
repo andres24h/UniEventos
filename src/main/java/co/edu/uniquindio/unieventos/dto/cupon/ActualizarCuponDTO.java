@@ -6,14 +6,15 @@ import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record ActualizarCuponDTO(
         ObjectId id,
-        String codigo,
         String nombre,
         double descuento,
         LocalDateTime fechaVencimiento,
         TipoCupon tipoCupon,
+        List<String> beneficiarios,
         EstadoCupon estadoCupon
 ) {
 }

@@ -16,6 +16,5 @@ public interface OrdenServicio {
     List<ItemOrdenDTO> listOrdenByEvento(String idEvento);
     List<ItemOrdenDTO> listOrdenByUsuario(String idUsuario);
     void cancelarOrden(String idOrden)throws Exception;
-    void procesarPago(String noclaro);
-    String generarQRC(String idOrden);
+
 }

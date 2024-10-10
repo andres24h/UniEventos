@@ -8,7 +8,7 @@ import java.util.List;
 public interface CuponServicio {
     String crearCupones(CrearCuponDTO cuponDTO)throws Exception;
     String actualizarCupon(ActualizarCuponDTO cuponDTO)throws Exception;
-    void borrarCupon(String idCupon);
+    void borrarCupon(String idCupon)throws Exception;
     boolean redimirCupon(RedimirCuponDTO redimirCuponDTO)throws Exception;
     boolean revertirRedencionCupon(RevertirCuponDTO revertirCuponDTO)throws Exception;
     List<ItemCuponDTO> listarCupones();

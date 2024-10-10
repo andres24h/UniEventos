@@ -14,7 +14,6 @@ public record CrearCuponDTO(
         @NotNull double descuento,
         LocalDateTime fechaVencimiento,
         @NotNull TipoCupon tipo,
-        @NotBlank EstadoCupon estado,
         List<String> beneficiarios
 ) {
 }

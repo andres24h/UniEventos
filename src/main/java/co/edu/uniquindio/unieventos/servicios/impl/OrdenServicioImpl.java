@@ -300,11 +300,6 @@ import java.util.Optional;
     }
 
 
-
-    @Override
-    public void procesarPago(String noclaro) {
-
-    }
     private Pago crearPago(Payment payment) {
         Pago pago = new Pago();
         pago.setCodigo(payment.getId().toString());
@@ -318,8 +313,4 @@ import java.util.Optional;
         return pago;
     }
 
-    @Override
-    public String generarQRC(String idOrden) {
-        return "";
-    }
 }

@@ -37,8 +37,7 @@ public class CuponServicioTest {
                 20,
                 LocalDateTime.now().plusDays(5),
                 TipoCupon.UNICO,
-                EstadoCupon.DISPONIBLE,
-                null
+                null //Es para todos los usuarios
         );
 
         assertDoesNotThrow(() -> {
@@ -60,7 +59,6 @@ public class CuponServicioTest {
                 20,
                 LocalDateTime.now().plusDays(5),
                 TipoCupon.INDIVIDUAL,
-                EstadoCupon.DISPONIBLE,
                 beneficiarios
         );
 
