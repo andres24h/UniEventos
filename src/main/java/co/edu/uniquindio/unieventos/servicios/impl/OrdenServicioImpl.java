@@ -83,7 +83,7 @@ import java.util.Optional;
             }
 
 
-            MercadoPagoConfig.setAccessToken("TEST-7107058101707123-100921-388dd4d81549503dc712a8dd94023d6f-472453342");
+            MercadoPagoConfig.setAccessToken("APP_USR-2088304176567559-100922-4374d8d26557817225214aef1143cf1c-2027302781");
 
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
                     .success("URL_PAGO_EXITOSO")
@@ -96,7 +96,7 @@ import java.util.Optional;
                     .backUrls(backUrls)
                     .items(itemsPasarela)
                     .metadata(Map.of("id_orden", ordenGuardada.getId()))
-                    .notificationUrl("URL_NOTIFICACION")
+                    .notificationUrl("https://1fff-152-202-205-68.ngrok-free.app/api/orden/notificacion")
                     .build();
 
 
