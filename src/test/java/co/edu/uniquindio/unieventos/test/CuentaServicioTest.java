@@ -206,7 +206,7 @@ public class CuentaServicioTest {
     @Test
     public void editarEventoCarritoTest() {
         String idCliente = "1010080936";
-        String idDetalle = "6705e2859440a4032e271530";
+        ObjectId idDetalle =new ObjectId("6708735bc560b73460c3adb6") ;
         String nuevaLocalidad = "VIP";
         int nuevaCantidad = 2;
 
@@ -230,7 +230,7 @@ public class CuentaServicioTest {
 
         List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();
 
-        assertEquals(3, lista.size());
+        assertEquals(6, lista.size());
     }
 
     private String encriptarPassword(String password){
