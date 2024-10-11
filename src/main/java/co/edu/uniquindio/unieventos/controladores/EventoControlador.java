@@ -88,7 +88,7 @@ public class EventoControlador {
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @PostMapping("/filtrar-por-nombre-y-ciudad")
+    @GetMapping("/filtrar-por-nombre-y-ciudad")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventosPorNombreYCiudad(@Valid @RequestBody FiltrarPorNombreYCiudadDTO filtro) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventosPorNombreYCiudad(filtro);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
@@ -100,25 +100,25 @@ public class EventoControlador {
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @PostMapping("/filtrar-por-fecha-y-ciudad")
+    @GetMapping("/filtrar-por-fecha-y-ciudad")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventosPorFechaYCiudad(@Valid @RequestBody FiltrarPorFechaYCiudadDTO filtro) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventosPorFechaYCiudad(filtro);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @PostMapping("/filtrar-por-fecha-y-tipo")
+    @GetMapping("/filtrar-por-fecha-y-tipo")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventosPorFechaYTipo(@Valid @RequestBody FiltrarPorFechaYTipoDTO filtro) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventosPorFechaYTipo(filtro);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @PostMapping("/filtrar-por-fecha-tipo-y-ciudad")
+    @GetMapping("/filtrar-por-fecha-tipo-y-ciudad")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventosPorFechaYTipoYCiudad(@Valid @RequestBody FiltrarPorFechaYTipoYCiudadDTO filtro) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventosPorFechaYTipoYCiudad(filtro);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-    @PostMapping("/filtrar-por-tipo-y-ciudad")
+    @GetMapping("/filtrar-por-tipo-y-ciudad")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventosPorTipoYCiudad(@Valid @RequestBody FiltrarPorTipoYCiudadDTO filtro) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventosPorTipoYCiudad(filtro);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
