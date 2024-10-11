@@ -167,7 +167,7 @@ public class EventoServicioTest {
         FiltroEventoDTO filtroEventoDTO = new FiltroEventoDTO(
                 "Concierto de Rock",
                 TipoEvento.CONCIERTO,
-                "Concierto Prueba"
+                "Bogotá"
         );
 
         assertDoesNotThrow(() -> {
