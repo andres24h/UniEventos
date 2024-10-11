@@ -101,7 +101,7 @@ public class EventoServicioTest {
         localidad3.setEntradasVendidas(0);
 
         EditarEventoDTO editarEventoDTO = new EditarEventoDTO(
-                "evento123",
+                "6705e2859440a4032e271530",
                 "Concierto Editado",
                 "Este es un concierto editado",
                 "Calle 789 #10-11",
@@ -122,7 +122,7 @@ public class EventoServicioTest {
 
     @Test
     public void eliminarEventoTest() {
-        String idEvento = "evento123";
+        String idEvento = "6705e2859440a4032e271530";
 
         assertDoesNotThrow(() -> {
             String resultado = eventoServicio.eliminarEvento(idEvento);
@@ -132,11 +132,11 @@ public class EventoServicioTest {
 
     @Test
     public void obtenerInformacionEventoTest() {
-        String idEvento = "evento123";
+        String idEvento = "6706e225dcd8cf50a8533d0a";
 
         assertDoesNotThrow(() -> {
             InformacionEventoDTO eventoDTO = eventoServicio.obtenerInformacionEvento(idEvento);
-            assertEquals("evento123", eventoDTO.id());
+            assertEquals("6706e225dcd8cf50a8533d0a", eventoDTO.id());
         });
     }
 
@@ -144,14 +144,14 @@ public class EventoServicioTest {
     public void listarEventosTest() {
         List<ItemEventoDTO> listaEventos = eventoServicio.listarEventos();
 
-        assertEquals(5, listaEventos.size()); // Cambia el valor según los eventos que esperas
+        assertEquals(1, listaEventos.size()); // Cambia el valor según los eventos que esperas
     }
 
     @Test
     public void disponibilidadTest() {
         DisponibilidadEventoDTO disponibilidadEventoDTO = new DisponibilidadEventoDTO(
-                "evento123",
-                "General",
+                "6706e225dcd8cf50a8533d0a",
+                "localidad2",
                 2
         );
 
@@ -165,9 +165,9 @@ public class EventoServicioTest {
     public void filtrarEventosTest() {
 
         FiltroEventoDTO filtroEventoDTO = new FiltroEventoDTO(
-                "CONCIERTO",
+                "Concierto de Rock",
                 TipoEvento.CONCIERTO,
-                "Concierto Prueba"
+                "Bogotá"
         );
 
         assertDoesNotThrow(() -> {

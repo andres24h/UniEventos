@@ -54,8 +54,8 @@ public class CuponServicioTest {
         beneficiarios.add("2");
 
         CrearCuponDTO crearCuponDTO = new CrearCuponDTO(
-                "CUPON-12345",
-                "Hallowen",
+                "CUPON-123456",
+                "Navidad",
                 20,
                 LocalDateTime.now().plusDays(5),
                 TipoCupon.INDIVIDUAL,
@@ -69,11 +69,11 @@ public class CuponServicioTest {
     }
     @Test
     public void actualizarCuponTest() throws Exception {
-        ObjectId id=new ObjectId("66fd8b358f12651396981a20");
+        ObjectId id=new ObjectId("6708786ca6dbd03a4bd252f8");
         List<String> beneficiarios=new ArrayList<>();
         ActualizarCuponDTO actualizarCuponDTO = new ActualizarCuponDTO(
                  id,
-                "CUPON-1234567F8",
+                "Navidad2",
                 25.5,
                 LocalDateTime.now().plusDays(20),
                 beneficiarios,
@@ -82,7 +82,7 @@ public class CuponServicioTest {
 
         assertDoesNotThrow(() -> {
             String updatedId = cuponServicio.actualizarCupon(actualizarCuponDTO);
-            assertEquals("66fd8b358f12651396981a20", updatedId);
+            assertEquals("6708786ca6dbd03a4bd252f8", updatedId);
         });
     }
 
@@ -90,19 +90,19 @@ public class CuponServicioTest {
     public void borrarCuponTest() throws Exception {
 
         assertDoesNotThrow(() -> {
-            cuponServicio.borrarCupon("");
-            Optional<Cupon> deletedCupon = cuponRepo.findById("");
-            assertTrue(deletedCupon.isEmpty());
+            cuponServicio.borrarCupon("6708786ca6dbd03a4bd252f8");
+            Cupon cupon = cuponRepo.findById("6708786ca6dbd03a4bd252f8").orElse(null);
+            assertEquals(EstadoCupon.NO_DISPONIBLE,cupon.getEstado());
         });
     }
 
     @Test
     public void redimirCuponTest() {
-        RedimirCuponDTO redimirCuponDTO = new RedimirCuponDTO("CUPON-AA12", "1");
+        RedimirCuponDTO redimirCuponDTO = new RedimirCuponDTO("CUPON-140c128b-2141-42f1-b8c2-4377f6fb547f", "1010080936");
 
         assertDoesNotThrow(() -> {
             boolean resultado = cuponServicio.redimirCupon(redimirCuponDTO);
-            assertEquals(true, resultado);
+            assertTrue(resultado);
         });
     }
 
@@ -113,7 +113,7 @@ public class CuponServicioTest {
         assertNotNull(cupones);
         assertFalse(cupones.isEmpty());
 
-        assertEquals(3, cupones.size());
+        assertEquals(2, cupones.size());
     }
 
     @Test

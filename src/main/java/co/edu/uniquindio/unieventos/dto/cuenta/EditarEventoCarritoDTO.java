@@ -2,7 +2,7 @@ package co.edu.uniquindio.unieventos.dto.cuenta;
 
 public record EditarEventoCarritoDTO(
         String idCliente,
-        String idDetalle,
+        org.bson.types.ObjectId idDetalle,
         String nuevaLocalidad,
         int nuevaCantidad
 ) {

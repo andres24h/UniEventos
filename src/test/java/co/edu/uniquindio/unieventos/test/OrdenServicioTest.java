@@ -28,7 +28,7 @@ public class OrdenServicioTest {
     public void crearOrdenConCuponRedimidoTest() {
         assertDoesNotThrow(() -> {
 
-            CrearOrdenDTO crearOrdenDTO = new CrearOrdenDTO("1091884230","CUPON-AA12");
+            CrearOrdenDTO crearOrdenDTO = new CrearOrdenDTO("1091884732","CUPON-12345");
 
             String idOrden = ordenServicio.crearOrden(crearOrdenDTO);
 
@@ -37,7 +37,7 @@ public class OrdenServicioTest {
             Orden orden = ordenRepo.findById(idOrden).orElse(null);
             assertNotNull(orden);
             assertEquals(1, orden.getItems().size());
-            assertEquals(180, orden.getTotal());
+            assertEquals(3680000, orden.getTotal());
         });
     }
 
@@ -45,7 +45,7 @@ public class OrdenServicioTest {
     public void crearOrdenSinCuponTest() {
         assertDoesNotThrow(() -> {
 
-            CrearOrdenDTO crearOrdenDTO = new CrearOrdenDTO("cliente123", null);
+            CrearOrdenDTO crearOrdenDTO = new CrearOrdenDTO("1010080936", null);
 
             String idOrden = ordenServicio.crearOrden(crearOrdenDTO);
 
@@ -55,7 +55,7 @@ public class OrdenServicioTest {
             Orden orden = ordenRepo.findById(idOrden).orElse(null);
             assertNotNull(orden);
             assertEquals(1, orden.getItems().size());
-            assertEquals(200, orden.getTotal()); // 2 entradas a $100 c/u sin descuento
+            assertEquals(400000, orden.getTotal()); // 2 entradas a $100 c/u sin descuento
         });
     }
 }
