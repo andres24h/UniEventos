@@ -148,14 +148,7 @@ public class EventoServicioImpl implements EventoServicio {
                         evento.getDireccion()
                 )).toList();
     }
-
-    @Override
-    public String obtenerNombreArtista(String id) throws Exception {
-        Evento evento = eventoRepo.findById(id).orElseThrow(() -> new Exception("No existe el evento"));
-
-
-        return evento.getIdUsuario();
-    }
+    
 
     @Override
     public Evento obtenerEvento(String id) throws Exception {
