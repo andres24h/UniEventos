@@ -97,7 +97,7 @@ import java.util.Optional;
                     .backUrls(backUrls)
                     .items(itemsPasarela)
                     .metadata(Map.of("id_orden", ordenGuardada.getId()))
-                    .notificationUrl("https://1fff-152-202-205-68.ngrok-free.app/api/orden/notificacion")
+                    .notificationUrl("https://76ae-152-202-205-68.ngrok-free.app/api/orden/notificacion")
                     .build();
 
 

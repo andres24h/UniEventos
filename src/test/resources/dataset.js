@@ -412,8 +412,142 @@ db.ordenes.insertMany([
             metodoPago: 'TARJETA DE CRÉDITO'
         },
         _class: 'co.edu.uniquindio.proyecto.modelo.documentos.Orden'
+
+
     }
-]
+        [
+        {
+            _id: {
+                $oid: "67071e84b593a631b3c8bb30"
+            },
+            idCliente: "1091884732",
+            codigoPasarela: "2027302781-aaadc1a4-e201-4e46-935b-e2451c03bb82",
+            pago: {
+                _id: "90132243630",
+                moneda: "COP",
+                tipoPago: "credit_card",
+                estado: "approved",
+                detalleEstado: "accredited",
+                codigoAutorizacion: "301299",
+                valorTransaccion: 9600000,
+                fecha: {
+                    $date: "2024-10-10T04:20:29.000Z"
+                }
+            },
+            total: 9600000,
+            fecha: {
+                $date: "2024-10-10T00:23:32.308Z"
+            },
+            items: [
+                {
+                    idEvento: {
+                        $oid: "6706e225dcd8cf50a8533d0a"
+                    },
+                    precioUnitario: 100000,
+                    nombreLocalidad: "General",
+                    cantidad: 50
+                },
+                {
+                    idEvento: {
+                        $oid: "6706e225dcd8cf50a8533d0a"
+                    },
+                    precioUnitario: 200000,
+                    nombreLocalidad: "VIP",
+                    cantidad: 23
+                }
+            ],
+            _class: "co.edu.uniquindio.unieventos.documentos.Orden"
+        },
+            {
+                _id: {
+                    $oid: "6708870f00e54c47c2d0fc4d"
+                },
+                idCliente: "1091884732",
+                idCupon: "6708783c2479536fe20ce581",
+                total: 3680000,
+                fecha: {
+                    $date: "2024-10-11T02:01:51.816Z"
+                },
+                items: [
+                    {
+                        idEvento: {
+                            $oid: "6706e225dcd8cf50a8533d0a"
+                        },
+                        precioUnitario: 200000,
+                        nombreLocalidad: "VIP",
+                        cantidad: 23
+                    }
+                ],
+                _class: "co.edu.uniquindio.unieventos.documentos.Orden"
+            },
+            {
+                _id: {
+                    $oid: "670887411f64cd06eb80fc2d"
+                },
+                idCliente: "1091884732",
+                idCupon: "6708783c2479536fe20ce581",
+                total: 3680000,
+                fecha: {
+                    $date: "2024-10-11T02:02:41.227Z"
+                },
+                items: [
+                    {
+                        idEvento: {
+                            $oid: "6706e225dcd8cf50a8533d0a"
+                        },
+                        precioUnitario: 200000,
+                        nombreLocalidad: "VIP",
+                        cantidad: 23
+                    }
+                ],
+                _class: "co.edu.uniquindio.unieventos.documentos.Orden"
+            },
+            {
+                _id: {
+                    $oid: "670887927b2fa7530eb7dd56"
+                },
+                idCliente: "1010080936",
+                total: 400000,
+                fecha: {
+                    $date: "2024-10-11T02:04:02.285Z"
+                },
+                items: [
+                    {
+                        idEvento: {
+                            $oid: "6706e225dcd8cf50a8533d0a"
+                        },
+                        precioUnitario: 200000,
+                        nombreLocalidad: "VIP",
+                        cantidad: 2
+                    }
+                ],
+                _class: "co.edu.uniquindio.unieventos.documentos.Orden"
+            },
+            {
+                _id: {
+                    $oid: "670887a3c537120c89164141"
+                },
+                idCliente: "1010080936",
+                total: 400000,
+                fecha: {
+                    $date: "2024-10-11T02:04:18.987Z"
+                },
+                items: [
+                    {
+                        idEvento: {
+                            $oid: "6706e225dcd8cf50a8533d0a"
+                        },
+                        precioUnitario: 200000,
+                        nombreLocalidad: "VIP",
+                        cantidad: 2
+                    }
+                ],
+                _class: "co.edu.uniquindio.unieventos.documentos.Orden"
+            }
+        ]
+
+
+    ]
 
 );
 
