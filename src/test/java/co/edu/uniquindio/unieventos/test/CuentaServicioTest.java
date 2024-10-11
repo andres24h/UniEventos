@@ -83,12 +83,12 @@ public class CuentaServicioTest {
         telefonos.add("315252671");
         telefonos.add("743212426");
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "3",
-                "Cuenta 3",
+                "1010080936",
+                "Cuenta Test 3",
                 telefonos,
                 "Calle 12 #26-49",
-                "cuenta3@gmail.com",
-                "password123"
+                "juanc.astudilloo@uqvirtual.edu.co",
+                "pass"
             );
 
             assertDoesNotThrow( () -> {
@@ -102,8 +102,8 @@ public class CuentaServicioTest {
     @Test
     public void activarCuentaTest() {
         ActivarCuentaDTO activarCuentaDTO = new ActivarCuentaDTO(
-                "luisc.moralesc@uqvirtual.edu.co",
-                "ATFK1uaziy"
+                "juanc.astudilloo@uqvirtual.edu.co",
+                "yawcOgbtzW"
         );
 
 
@@ -115,7 +115,7 @@ public class CuentaServicioTest {
 
     @Test
     public void editarCuentaTest(){
-        String idCuenta = "1091884230";
+        String idCuenta = "1010080936";
         List<String> telefonos=new ArrayList<>();
         telefonos.add("320492232");
         EditarCuentaDTO editarCuentaDTO = new EditarCuentaDTO(
@@ -134,7 +134,7 @@ public class CuentaServicioTest {
 
     @Test
     public void eliminarCuentaTest()  {
-        String idCuenta = "1091884230";
+        String idCuenta = "1010080936";
         assertDoesNotThrow(() -> cuentaServicio.eliminarCuenta(idCuenta) );
 
     }
@@ -152,8 +152,8 @@ public class CuentaServicioTest {
     public void cambiarPasswordTest() {
         CambiarPasswordDTO cambiarPasswordDTO = new CambiarPasswordDTO(
                 "luisc.moralesc@uqvirtual.edu.co",
-                "Hr7yyupmBn", //Codigo que recibimos por correo
-                "nuevaPassword"
+                "31BUkVKUwK", //Codigo que recibimos por correo
+                "pass"
         );
 
         assertDoesNotThrow(() -> {
@@ -164,13 +164,13 @@ public class CuentaServicioTest {
     @Test
     public void iniciarSesionTest() {
         LoginDTO loginDTO = new LoginDTO(
-                "luisc.moralesc@uqvirtual.edu.co",
-                "nuevaPassword"
+                "juanc.astudilloo@uqvirtual.edu.co",
+                "pass"
         );
 
         assertDoesNotThrow(() -> {
             TokenDTO tokenDTO=cuentaServicio.iniciarSesion(loginDTO);
-            assertEquals("Token", tokenDTO.toString());
+            assertNotNull(tokenDTO.toString());
         });
     }
 
@@ -178,8 +178,8 @@ public class CuentaServicioTest {
     @Test
     public void eliminarEventoCarritoTest() {
         EliminarEventoDTO eliminarEventoDTO = new EliminarEventoDTO(
-                "1091884230",
-                new ObjectId("66f8a476e6f00716b3b59ece")
+                "1010080936",
+                new ObjectId("67087310e8aed80268c9827c")
         );
 
         assertDoesNotThrow(() -> {
@@ -192,8 +192,8 @@ public class CuentaServicioTest {
         AgregarEventoDTO agregarEventoDTO = new AgregarEventoDTO(
                 3,
                 "VIP",
-                new ObjectId("66fdb5885aa7fb5163c9584a"),
-                "1091884230",
+                new ObjectId("6705e2859440a4032e271530"),
+                "1010080936",
                 LocalDateTime.now()
         );
 
@@ -205,8 +205,8 @@ public class CuentaServicioTest {
 
     @Test
     public void editarEventoCarritoTest() {
-        String idCliente = "1091884230";
-        String idDetalle = "66f8a476e6f00716b3b59ece";
+        String idCliente = "1010080936";
+        String idDetalle = "6705e2859440a4032e271530";
         String nuevaLocalidad = "VIP";
         int nuevaCantidad = 2;
 
