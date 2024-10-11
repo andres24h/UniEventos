@@ -148,7 +148,7 @@ public class EventoServicioImpl implements EventoServicio {
                         evento.getDireccion()
                 )).toList();
     }
-    
+
 
     @Override
     public Evento obtenerEvento(String id) throws Exception {
