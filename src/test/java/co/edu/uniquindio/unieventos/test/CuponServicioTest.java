@@ -70,15 +70,15 @@ public class CuponServicioTest {
     @Test
     public void actualizarCuponTest() throws Exception {
         ObjectId id=new ObjectId("66fd8b358f12651396981a20");
+        List<String> beneficiarios=new ArrayList<>();
         ActualizarCuponDTO actualizarCuponDTO = new ActualizarCuponDTO(
                  id,
                 "CUPON-1234567F8",
-                "Año viejo",
-                    25.5,
+                25.5,
                 LocalDateTime.now().plusDays(20),
-                TipoCupon.INDIVIDUAL,
-                EstadoCupon.NO_DISPONIBLE
-        );
+                beneficiarios,
+                EstadoCupon.DISPONIBLE
+                );
 
         assertDoesNotThrow(() -> {
             String updatedId = cuponServicio.actualizarCupon(actualizarCuponDTO);

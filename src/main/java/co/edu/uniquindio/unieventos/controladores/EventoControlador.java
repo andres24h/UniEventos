@@ -70,10 +70,4 @@ public class EventoControlador {
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 
-
-    @GetMapping("/obtener-artista-evento/{id}")
-    public ResponseEntity<MensajeDTO<String>> obtenerNombreArtista(@PathVariable String id) throws Exception {
-        String nombreArtista = eventoServicio.obtenerNombreArtista(id);
-        return ResponseEntity.ok(new MensajeDTO<>(false, nombreArtista));
-    }
 }
