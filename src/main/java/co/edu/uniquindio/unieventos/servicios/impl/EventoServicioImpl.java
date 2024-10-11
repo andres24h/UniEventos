@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.servicios.impl;
 
 import co.edu.uniquindio.unieventos.documentos.Cuenta;
 import co.edu.uniquindio.unieventos.documentos.Evento;
+import co.edu.uniquindio.unieventos.documentos.TipoEvento;
 import co.edu.uniquindio.unieventos.dto.evento.*;
 import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.repositorios.EventoRepo;
@@ -151,6 +152,114 @@ public class EventoServicioImpl implements EventoServicio {
     @Override
     public Evento obtenerEvento(String id) throws Exception {
         return eventoRepo.findById(id).orElseThrow(() -> new Exception("No existe el evento"));
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorCiudad(String ciudad) {
+        return eventoRepo.findByCiudad(ciudad).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorTipo(TipoEvento tipo) {
+        return eventoRepo.findByTipo(tipo).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorNombre(String nombre) {
+        return eventoRepo.findByNombreContains(nombre).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorNombreYCiudad(FiltrarPorNombreYCiudadDTO filtrarPorNombreYCiudadDTO) {
+        return eventoRepo.findByNombreAndCiudad(filtrarPorNombreYCiudadDTO.nombre(), filtrarPorNombreYCiudadDTO.ciudad()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorFecha(FiltrarPorFechaDTO filtrarPorFechaDTO) {
+        return eventoRepo.findByFechaBetween(filtrarPorFechaDTO.fechaInicio(), filtrarPorFechaDTO.fechaFin()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorFechaYCiudad(FiltrarPorFechaYCiudadDTO filtrarPorFechaYCiudadDTO) {
+        return eventoRepo.findByFechaBetweenAndCiudad(filtrarPorFechaYCiudadDTO.fechaInicio(), filtrarPorFechaYCiudadDTO.fechaFin(), filtrarPorFechaYCiudadDTO.ciudad()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorFechaYTipo(FiltrarPorFechaYTipoDTO filtrarPorFechaYTipoDTO) {
+        return eventoRepo.findByFechaBetweenAndTipo(filtrarPorFechaYTipoDTO.fechaInicio(), filtrarPorFechaYTipoDTO.fechaFin(), filtrarPorFechaYTipoDTO.tipo()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorFechaYTipoYCiudad(FiltrarPorFechaYTipoYCiudadDTO filtrarPorFechaYTipoYCiudadDTO) {
+        return eventoRepo.findByFechaBetweenAndTipoAndCiudad(filtrarPorFechaYTipoYCiudadDTO.fechaInicio(), filtrarPorFechaYTipoYCiudadDTO.fechaFin(), filtrarPorFechaYTipoYCiudadDTO.tipo(), filtrarPorFechaYTipoYCiudadDTO.ciudad()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
+    }
+
+    @Override
+    public List<ItemEventoDTO> filtrarEventosPorTipoYCiudad(FiltrarPorTipoYCiudadDTO filtrarPorTipoYCiudadDTO) {
+        return eventoRepo.findByTipoAndCiudad(filtrarPorTipoYCiudadDTO.tipo(), filtrarPorTipoYCiudadDTO.ciudad()).stream().map(evento -> new ItemEventoDTO(
+                evento.getId(),
+                evento.getNombre(),
+                evento.getDescripcion(),
+                evento.getImagenPortada(),
+                evento.getFecha(),
+                evento.getDireccion()
+        )).toList();
     }
 
     public boolean existeId(String id){
