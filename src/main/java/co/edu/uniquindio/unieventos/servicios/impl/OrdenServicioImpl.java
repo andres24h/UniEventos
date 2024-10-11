@@ -48,6 +48,7 @@ import java.util.Optional;
 
         @Autowired
         private CuponRepo cuponRepo;
+
         @Autowired
         private CuponServicio cuponServicio;
 
@@ -253,50 +254,10 @@ import java.util.Optional;
     }
 
 
-    @Override
-    @Transactional
-    public void cancelarOrden(String idOrden) throws Exception {
-
-        Orden orden = ordenRepo.findById(idOrden)
-                .orElseThrow(() -> new Exception("La orden no fue encontrada"));
-
-
-        if (orden.getPago() != null) {
-            throw new Exception("La orden ya ha sido pagada y no puede ser cancelada");
-        }
-
-
-        if (orden.getIdCupon() != null) {
-            Cupon cupon = cuponRepo.findById(orden.getIdCupon())
-                    .orElseThrow(() -> new Exception("El cupón asociado a la orden no fue encontrado"));
-
-            RevertirCuponDTO revertirCuponDTO = new RevertirCuponDTO(cupon.getCodigo(), orden.getIdCliente());
-            cuponServicio.revertirRedencionCupon(revertirCuponDTO);
-        }
-
-
-        for (DetalleOrden detalle : orden.getItems()) {
-            Evento evento = eventoRepo.findById(detalle.getIdEvento())
-                    .orElseThrow(() -> new Exception("Evento no encontrado"));
-
-            Localidad localidad = evento.getLocalidades().stream()
-                    .filter(l -> l.getNombre().equals(detalle.getNombreLocalidad()))
-                    .findFirst()
-                    .orElseThrow(() -> new Exception("Localidad no encontrada"));
-
-
-            localidad.setEntradasVendidas(localidad.getEntradasVendidas() + detalle.getCantidad());
-            eventoRepo.save(evento);
-        }
-
-
-        ordenRepo.delete(orden);
-    }
-
 
     @Override
-    public List<ItemOrdenDTO> listOrdenByUsuario(String idUsuario) {
-        return List.of();
+    public List<ItemOrdenDTO> listOrdenByUsuario(String idCliente) {
+        return ordenRepo.listarOrdenes(idCliente);
     }
 
 

@@ -67,39 +67,38 @@ public class AdministradorControlador {
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
 
-    // Método para borrar un cupón
+
     @DeleteMapping("/borrar-cupon/{idCupon}")
     public ResponseEntity<MensajeDTO<String>> borrarCupon(@PathVariable String idCupon) throws Exception {
         cuponServicio.borrarCupon(idCupon);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cupón eliminado exitosamente"));
     }
-    // Métodos para reportes
-    // Endpoint para obtener las estadísticas del evento en formato JSON
+
     @GetMapping("/estadisticas/{idEvento}")
     public ResponseEntity<Reporte> generarEstadisticasEvento(@PathVariable String idEvento) throws Exception {
         Evento evento = eventoServicio.obtenerEvento(idEvento);
         List<Orden> ordenes = ordenRepo.findByItemsIdEvento(idEvento);
 
-        // Generar el reporte con las estadísticas
+
         Reporte reporte = reporteServicio.generarReporte(new GenerarReporteDTO(evento,ordenes));
 
         return ResponseEntity.ok(reporte);
     }
 
-    // Endpoint para descargar el reporte en formato PDF
+
     @GetMapping("/estadisticas/pdf/{idEvento}")
     public ResponseEntity<byte[]> descargarReportePDF(@PathVariable String idEvento) throws Exception {
         Evento evento = eventoServicio.obtenerEvento(idEvento);
         List<Orden> ordenes = ordenRepo.findByItemsIdEvento(idEvento);
 
-        // Generar el reporte con las estadísticas
+
         Reporte reporte = reporteServicio.generarReporte(new GenerarReporteDTO(evento, ordenes));
 
-        // Generar el archivo PDF en memoria
+
         ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
         reporteServicio.generarPDF(reporte, pdfOutputStream);
 
-        // Convertir a array de bytes para enviar en la respuesta
+
         byte[] pdfBytes = pdfOutputStream.toByteArray();
 
         HttpHeaders headers = new HttpHeaders();

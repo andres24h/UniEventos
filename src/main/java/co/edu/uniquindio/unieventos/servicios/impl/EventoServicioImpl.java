@@ -18,10 +18,8 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class EventoServicioImpl implements EventoServicio {
-
     private final EventoRepo eventoRepo;
     private final CuentaRepo cuentaRepo;
-
 
     public String crearEvento(CrearEventoDTO crearEventoDTO) throws Exception {
         if (existeNombre(crearEventoDTO.nombre())) {

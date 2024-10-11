@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Localidad implements Serializable {
+public class Localidad {
 
     @Id
     @EqualsAndHashCode.Include

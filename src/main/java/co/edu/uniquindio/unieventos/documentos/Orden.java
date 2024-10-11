@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Orden implements Serializable {
+public class Orden  {
     @Id
     @EqualsAndHashCode.Include
     private String id;

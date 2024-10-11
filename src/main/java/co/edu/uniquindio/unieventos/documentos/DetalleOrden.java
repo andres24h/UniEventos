@@ -14,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class DetalleOrden implements Serializable {
+public class DetalleOrden {
     private ObjectId idEvento;
     private double precioUnitario;
     private String nombreLocalidad;

@@ -44,11 +44,7 @@ public class CuponControlador {
      */
 
 
-    @PutMapping("/revertir-redencion")
-    public ResponseEntity<MensajeDTO<String>> revertirRedencionCupon(@Valid @RequestBody RevertirCuponDTO revertirCuponDTO) throws Exception {
-        boolean revertido = cuponServicio.revertirRedencionCupon(revertirCuponDTO);
-        return ResponseEntity.ok(new MensajeDTO<>(false, revertido ? "Redención del cupón revertida exitosamente" : "No se pudo revertir la redención"));
-    }
+
 
     @GetMapping("/listar-todo-cupon")
     public ResponseEntity<MensajeDTO<List<ItemCuponDTO>>> listarCupones() {

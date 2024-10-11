@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Evento implements Serializable {
+public class Evento {
 
     @Id
     @EqualsAndHashCode.Include

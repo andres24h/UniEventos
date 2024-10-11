@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.controladores;
 
 import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.dto.cupon.RedimirCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.RevertirCuponDTO;
 import co.edu.uniquindio.unieventos.dto.global.MensajeDTO;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuentaServicio;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
@@ -70,6 +71,7 @@ public class CuentaControlador {
         boolean redimido = cuponServicio.redimirCupon(redimirCuponDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, redimido ? "Cupón redimido exitosamente" : "No se pudo redimir el cupón"));
     }
+
 
 }
 

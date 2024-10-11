@@ -56,13 +56,6 @@ public class OrdenControlador {
     }
 
 
-    @DeleteMapping("/cancelar/{idOrden}")
-    public ResponseEntity<MensajeDTO<String>> cancelarOrden(@PathVariable String idOrden) throws Exception {
-        ordenServicio.cancelarOrden(idOrden);
-        return ResponseEntity.ok(new MensajeDTO<>(false, "Orden cancelada exitosamente"));
-    }
-
-
     @GetMapping("/ordenes-evento/{idEvento}")
     public ResponseEntity<List<Orden>> obtenerOrdenesPorEvento(@PathVariable String idEvento) {
         List<ItemOrdenDTO> ordenes = ordenServicio.listOrdenByEvento(idEvento);

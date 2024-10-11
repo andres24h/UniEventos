@@ -10,7 +10,6 @@ public interface CuponServicio {
     String actualizarCupon(ActualizarCuponDTO cuponDTO)throws Exception;
     void borrarCupon(String idCupon)throws Exception;
     boolean redimirCupon(RedimirCuponDTO redimirCuponDTO)throws Exception;
-    boolean revertirRedencionCupon(RevertirCuponDTO revertirCuponDTO)throws Exception;
     List<ItemCuponDTO> listarCupones();
     List<ItemCuponDTO> listarCuponesCliente(ListarCupoDTO listarCupoDTO);
 

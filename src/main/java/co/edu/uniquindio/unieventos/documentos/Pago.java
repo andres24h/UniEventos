@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Pago implements Serializable {
+public class Pago {
 
     @Id
     @EqualsAndHashCode.Include

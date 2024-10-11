@@ -64,7 +64,7 @@ public class EventoControlador {
     }
 
 
-    @PostMapping("/filtrar-evento")
+    @GetMapping("/filtrar-evento")
     public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventos(@Valid @RequestBody FiltroEventoDTO filtroEventoDTO) {
         List<ItemEventoDTO> lista = eventoServicio.filtrarEventos(filtroEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));

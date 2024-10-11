@@ -11,12 +11,12 @@ import java.util.Optional;
 
 public interface OrdenRepo extends MongoRepository<Orden, String> {
     @Aggregation({
-            "{ $match: { idUsuario: ?0 } }",
-            "{ $lookup: { from: 'usuarios', localField: 'idUsuario', foreignField: '_id', as: 'usuario' } }",
-            "{ $unwind: '$usuario' }",
-            "{ $project: { fecha: '$fecha', estado: '$estado', pago: '$pago', nombreUsuario: '$usuario.nombre', correoUsuario: '$usuario.email' } }"
+            "{ $match: { idCliente: ?0 } }", // Coincidir por idCliente
+            "{ $lookup: { from: 'cuentas', localField: 'idCliente', foreignField: '_id', as: 'cuenta' } }", // Unir con la colección 'cuentas'
+            "{ $unwind: '$cuenta' }", // Descomponer el array de cuentas
+            "{ $project: { fecha: 1, estado: 1, 'pago.estado': 1, nombreUsuario: '$cuenta.usuario.nombre', correoUsuario: '$cuenta.email' } }" // Proyectar los datos de la cuenta
     })
-    List<ItemOrdenDTO> listarOrdenes(String codigoCliente);
-    Optional<Orden> findByIdCliente(String idCliente);
+    List<ItemOrdenDTO> listarOrdenes(String idCliente);
+    List <Orden> findByIdCliente(String idCliente);
     List<Orden> findByItemsIdEvento(String items_idEvento);
 }

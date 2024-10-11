@@ -143,35 +143,7 @@ public class CuponServicioImpl implements CuponServicio {
         return true;
     }
 
-    @Override
-    public boolean revertirRedencionCupon(RevertirCuponDTO revertirCuponDTO) throws Exception {
-        Optional<Cupon> cuponOptional = cuponRepo.findByCodigo(revertirCuponDTO.codigoCupon());
-        if (cuponOptional.isEmpty()) {
-            throw new Exception("El cupón no existe");
-        }
 
-        Cupon cupon = cuponOptional.get();
-
-        if (cupon.getFechaVencimiento().isBefore(LocalDateTime.now())) {
-            throw new Exception("El cupón ha expirado");
-        }
-
-        List<String> beneficiarios = cupon.getBeneficiarios();
-
-        if (!beneficiarios.contains(revertirCuponDTO.idCliente())) {
-            beneficiarios.add(revertirCuponDTO.idCliente());
-            cupon.setBeneficiarios(beneficiarios);
-        } else {
-            throw new Exception("El cliente ya posee este cupón");
-        }
-
-        if (cupon.getEstado() != EstadoCupon.DISPONIBLE) {
-            cupon.setEstado(EstadoCupon.DISPONIBLE);
-        }
-
-        cuponRepo.save(cupon);
-        return true;
-    }
 
 
     public boolean verificarDisponibilidadCupon(String codigoCupon) {
@@ -191,6 +163,8 @@ public class CuponServicioImpl implements CuponServicio {
     @Override
     public List<ItemCuponDTO> listarCupones() {
         return cuponRepo.findAll().stream()
+                .filter(cupon -> cupon.getEstado() == EstadoCupon.DISPONIBLE
+                        && cupon.getFechaVencimiento().isAfter(LocalDateTime.now()))
                 .map(cupon -> new ItemCuponDTO(
                         cupon.getId(),
                         cupon.getCodigo(),
@@ -203,8 +177,11 @@ public class CuponServicioImpl implements CuponServicio {
 
     @Override
     public List<ItemCuponDTO> listarCuponesCliente(ListarCupoDTO listarCupoDTO) {
-        return cuponRepo.findByBeneficiariosContains(listarCupoDTO.idCliente())
-                .stream()
+        return cuponRepo.findAll().stream()
+                .filter(cupon -> cupon.getEstado() == EstadoCupon.DISPONIBLE
+                        && cupon.getFechaVencimiento().isAfter(LocalDateTime.now())
+                        && (cupon.getTipo() == TipoCupon.UNICO
+                        || (cupon.getTipo() == TipoCupon.INDIVIDUAL && cupon.getBeneficiarios().contains(listarCupoDTO.idCliente()))))
                 .map(cupon -> new ItemCuponDTO(
                         cupon.getId(),
                         cupon.getCodigo(),
@@ -215,9 +192,7 @@ public class CuponServicioImpl implements CuponServicio {
                 )).collect(Collectors.toList());
     }
 
-
-
-        private String generarCodigoIndividual() {
+    private String generarCodigoIndividual() {
         return "CUPON-" + UUID.randomUUID().toString();
     }
 

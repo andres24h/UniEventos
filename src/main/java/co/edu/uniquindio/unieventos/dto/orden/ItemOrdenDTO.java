@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record ItemOrdenDTO (
-
         String idCliente,
         String idCupon,
         double total,
