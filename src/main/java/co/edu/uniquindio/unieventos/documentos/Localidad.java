@@ -18,7 +18,6 @@ public class Localidad {
     @Id
     @EqualsAndHashCode.Include
     private String id;
-
     private String nombre;
     private double precio;
     private int entradasVendidas;
