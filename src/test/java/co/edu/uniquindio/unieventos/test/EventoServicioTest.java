@@ -65,7 +65,7 @@ public class EventoServicioTest {
                 "imagenLocalidades.jpg",
                 TipoEvento.CONCIERTO.toString(),
                 localidadades,
-                EstadoEvento.ACTIVO,
+                EstadoEvento.ACTIVO.toString(),
                 LocalDateTime.now(),
                 ubicacion
         );
@@ -109,7 +109,7 @@ public class EventoServicioTest {
                 "imagenLocalidades2.jpg",
                 TipoEvento.CONCIERTO.toString(),
                 localidadades,
-                EstadoEvento.ACTIVO,
+                EstadoEvento.ACTIVO.toString(),
                 LocalDateTime.now(),
                 ubicacion
         );

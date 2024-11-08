@@ -27,6 +27,4 @@ public class ImagenesControlador {
         imagenesServicio.eliminarImagen( idImagen );
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "La imagen fue eliminada correctamente"));
     }
-
-
 }

@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.servicios.impl;
 
 
 import co.edu.uniquindio.unieventos.servicios.interfaces.ImagenesServicio;
+import com.google.api.gax.paging.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.cloud.storage.*;
@@ -24,9 +25,24 @@ public class ImagenesServicioImpl implements ImagenesServicio{
     }
 
     @Override
-    public void eliminarImagen(String nombreImagen) throws Exception{
+    public void eliminarImagen(String nombreImagenOriginal) throws Exception {
         Bucket bucket = StorageClient.getInstance().bucket();
-        Blob blob = bucket.get(nombreImagen);
-        blob.delete();
+        Page<Blob> blobs = bucket.list(Storage.BlobListOption.prefix(""));
+
+        for (Blob blob : blobs.iterateAll()) {
+            if (blob.getName().endsWith(nombreImagenOriginal)) {
+                boolean deleted = blob.delete();
+                if (!deleted) {
+                    throw new Exception("No se pudo eliminar la imagen, verifica los permisos y el estado del archivo.");
+                } else {
+                    System.out.println("Imagen eliminada exitosamente.");
+                }
+                return;
+            }
+        }
+
+        throw new Exception("La imagen especificada no existe en el almacenamiento o el nombre es incorrecto.");
     }
+
+
 }

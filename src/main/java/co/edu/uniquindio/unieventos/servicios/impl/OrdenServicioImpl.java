@@ -74,7 +74,7 @@ import java.util.Optional;
                         .id(informacionEventoDTO.id())
                         .title(informacionEventoDTO.nombre())
                         .pictureUrl(informacionEventoDTO.imagenPortada())
-                        .categoryId(informacionEventoDTO.tipo().name())
+                        .categoryId(informacionEventoDTO.tipo())
                         .quantity(item.getCantidad())
                         .currencyId("COP")
                         .unitPrice(BigDecimal.valueOf(localidad.getPrecio()))

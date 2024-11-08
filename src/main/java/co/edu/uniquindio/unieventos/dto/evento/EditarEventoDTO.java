@@ -18,7 +18,7 @@ public record EditarEventoDTO(
         String imagenLocalidades,
         String tipo,
         List<Localidad> localidades,
-        EstadoEvento estado,
+        String estado,
         LocalDateTime fecha,
         Ubicacion ubicacion) {
 }

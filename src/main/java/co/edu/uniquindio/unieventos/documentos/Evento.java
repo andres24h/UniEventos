@@ -28,7 +28,7 @@ public class Evento {
     private String ciudad;
     private String imagenPortada;
     private String ImagenLocalidades;
-    private EstadoEvento estado;
+    private String estado;
     private String tipo;
     private LocalDateTime fecha;
     private List<Localidad> localidades;
