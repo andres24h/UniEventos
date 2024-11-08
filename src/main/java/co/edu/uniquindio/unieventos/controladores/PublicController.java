@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.controladores;
 
 
 import co.edu.uniquindio.unieventos.documentos.Departamentos;
+import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
 import co.edu.uniquindio.unieventos.documentos.TipoEvento;
 import co.edu.uniquindio.unieventos.dto.global.MensajeDTO;
 import co.edu.uniquindio.unieventos.servicios.interfaces.PublicServicio;
@@ -29,5 +30,10 @@ public class PublicController {
     @GetMapping("/listar-tipo")
     public ResponseEntity<MensajeDTO<List<TipoEvento>>> listarTipoEvento(){
         return ResponseEntity.ok().body( new MensajeDTO<>(false, publicServicio.listarTipo()));
+    }
+
+    @GetMapping("/listar-estado")
+    public ResponseEntity<MensajeDTO<List<EstadoEvento>>> listarEstado(){
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, publicServicio.listarEstado()));
     }
 }

@@ -16,7 +16,7 @@ public record InformacionEventoDTO(
         String ciudad,
         String imagenPortada,
         String imagenLocalidades,
-        TipoEvento tipo,
+        String tipo,
         List<Localidad> localidades,
         EstadoEvento estado,
         LocalDateTime fecha,

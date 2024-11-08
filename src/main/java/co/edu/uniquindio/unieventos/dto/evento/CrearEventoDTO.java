@@ -18,9 +18,9 @@ public record CrearEventoDTO(
         @NotBlank String ciudad,
         @NotBlank String imagenPortada,
         @NotBlank String imagenLocalidades,
-        @NotNull TipoEvento tipo,
-        @NotNull List<Localidad> localidades,
-        @NotNull EstadoEvento estado,
-        @NotNull LocalDateTime fecha,
-        @NotNull Ubicacion ubicacion) {
+        @NotNull  String tipo,
+        @NotNull  List<Localidad> localidades,
+        @NotNull  String estado,
+        @NotNull  LocalDateTime fecha,
+        @NotNull  Ubicacion ubicacion) {
 }
