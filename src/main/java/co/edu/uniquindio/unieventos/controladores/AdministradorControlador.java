@@ -8,6 +8,7 @@ import co.edu.uniquindio.unieventos.dto.cupon.ActualizarCuponDTO;
 import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
 import co.edu.uniquindio.unieventos.dto.evento.CrearEventoDTO;
 import co.edu.uniquindio.unieventos.dto.evento.EditarEventoDTO;
+import co.edu.uniquindio.unieventos.dto.evento.ItemEventoDTO;
 import co.edu.uniquindio.unieventos.dto.global.MensajeDTO;
 import co.edu.uniquindio.unieventos.dto.reportes.GenerarReporteDTO;
 import co.edu.uniquindio.unieventos.repositorios.OrdenRepo;
@@ -53,6 +54,13 @@ public class AdministradorControlador {
         String resultado = eventoServicio.eliminarEvento(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
     }
+
+    @GetMapping("/listar-todo-evento")
+    public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> listarEventos() {
+        List<ItemEventoDTO> lista = eventoServicio.listarEventos();
+        return ResponseEntity.ok(new MensajeDTO<>(false, lista));
+    }
+
 
     @PostMapping("/crear-cupon")
     public ResponseEntity<MensajeDTO<String>> crearCupon(@Valid @RequestBody CrearCuponDTO cuponDTO) throws Exception {

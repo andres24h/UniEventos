@@ -71,6 +71,7 @@ public class EventoServicioImpl implements EventoServicio {
         evento.setTipo(editarEventoDTO.tipo());
         evento.setFecha(editarEventoDTO.fecha());
         evento.setLocalidades(editarEventoDTO.localidades());
+        evento.setUbicacion(editarEventoDTO.ubicacion());
 
         eventoRepo.save(evento);
 
@@ -114,6 +115,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -142,6 +145,8 @@ public class EventoServicioImpl implements EventoServicio {
                         evento.getId(),
                         evento.getNombre(),
                         evento.getDescripcion(),
+                        evento.getTipo(),
+                        evento.getEstado(),
                         evento.getImagenPortada(),
                         evento.getFecha(),
                         evento.getDireccion()
@@ -160,6 +165,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -172,6 +179,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -184,6 +193,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -196,6 +207,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -208,6 +221,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -220,6 +235,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -232,6 +249,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -244,6 +263,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()
@@ -256,6 +277,8 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getId(),
                 evento.getNombre(),
                 evento.getDescripcion(),
+                evento.getTipo(),
+                evento.getEstado(),
                 evento.getImagenPortada(),
                 evento.getFecha(),
                 evento.getDireccion()

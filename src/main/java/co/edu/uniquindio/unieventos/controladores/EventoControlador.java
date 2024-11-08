@@ -51,11 +51,6 @@ public class EventoControlador {
     }
 
 
-    @GetMapping("/listar-todo-evento")
-    public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> listarEventos() {
-        List<ItemEventoDTO> lista = eventoServicio.listarEventos();
-        return ResponseEntity.ok(new MensajeDTO<>(false, lista));
-    }
 
 
     @PostMapping("/disponibilidad-evento")
