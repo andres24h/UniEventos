@@ -10,10 +10,11 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 
 public record EditarEventoDTO(
-        @NotBlank String id,
+        String id,
         String nombre,
         String descripcion,
         String direccion,
+        String ciudad,
         String imagenPortada,
         String imagenLocalidades,
         String tipo,
