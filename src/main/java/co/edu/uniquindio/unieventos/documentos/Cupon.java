@@ -25,8 +25,8 @@ public class Cupon implements Serializable {
     private String nombre;
     private String codigo;
     private double descuento;
-    private EstadoCupon estado;
-    private TipoCupon tipo;
+    private String estado;
+    private String tipo;
     private LocalDateTime fechaVencimiento;
     private List<String> beneficiarios;
 

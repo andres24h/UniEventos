@@ -1,8 +1,6 @@
 package co.edu.uniquindio.unieventos.servicios.impl;
 
-import co.edu.uniquindio.unieventos.documentos.Departamentos;
-import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
-import co.edu.uniquindio.unieventos.documentos.TipoEvento;
+import co.edu.uniquindio.unieventos.documentos.*;
 import co.edu.uniquindio.unieventos.servicios.interfaces.PublicServicio;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +23,14 @@ public class PublicServicioImpl implements PublicServicio {
     @Override
     public List<EstadoEvento> listarEstado() {
         return Arrays.asList(EstadoEvento.values());
+    }
+
+    @Override
+    public List<EstadoCupon> listarEstadoCupon() {
+        return Arrays.asList(EstadoCupon.values());
+    }
+    @Override
+    public List<TipoCupon> listarTipoCupon() {
+        return Arrays.asList(TipoCupon.values());
     }
 }

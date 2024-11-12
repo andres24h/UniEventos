@@ -9,9 +9,10 @@ public record ItemCuponDTO(
         String id,
         String codigo,
         String nombre,
+        String estado,
         double descuento,
         LocalDateTime fechaVencimiento,
-        TipoCupon tipoCupon
+        String tipoCupon
         ){
 
 }

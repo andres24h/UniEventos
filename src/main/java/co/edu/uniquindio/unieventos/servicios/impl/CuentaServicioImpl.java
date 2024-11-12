@@ -102,7 +102,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         List<String> b=new ArrayList<>();
         b.add(cuenta.getId());
-        String codigoCupon= cuponServicio.crearCupones(new CrearCuponDTO("Cupon R-1","Codigo de bienvenida",15,LocalDateTime.now().plusYears(2),TipoCupon.INDIVIDUAL,b));
+        String codigoCupon= cuponServicio.crearCupones(new CrearCuponDTO("Cupon R-1","Codigo de bienvenida",EstadoCupon.DISPONIBLE.toString(),15,LocalDateTime.now().plusYears(2),TipoCupon.INDIVIDUAL.toString(),b));
         emailServicio.enviarCorreo(new EmailDTO("Bienvenido a UniEventos, te regalamos un cupon de bienvenida con 15% ","Esta es tu codigo:"+codigoCupon,cuenta.getEmail()));
         cuenta.setEstado(EstadoCuenta.ACTIVO);
         cuenta.setCodigoValidacionRegistro(null);

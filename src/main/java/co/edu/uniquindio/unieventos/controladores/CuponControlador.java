@@ -46,11 +46,7 @@ public class CuponControlador {
 
 
 
-    @GetMapping("/listar-todo-cupon")
-    public ResponseEntity<MensajeDTO<List<ItemCuponDTO>>> listarCupones() {
-        List<ItemCuponDTO> lista = cuponServicio.listarCupones();
-        return ResponseEntity.ok(new MensajeDTO<>(false, lista));
-    }
+
     @PostMapping("/listar-cupon-cliente")
     public ResponseEntity<MensajeDTO<List<ItemCuponDTO>>> listarCuponesCliente(@Valid @RequestBody ListarCupoDTO listarCupoDTO) {
         List<ItemCuponDTO> lista = cuponServicio.listarCuponesCliente(listarCupoDTO);

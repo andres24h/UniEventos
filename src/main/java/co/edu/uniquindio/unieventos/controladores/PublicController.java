@@ -1,10 +1,10 @@
 package co.edu.uniquindio.unieventos.controladores;
 
 
-import co.edu.uniquindio.unieventos.documentos.Departamentos;
-import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
-import co.edu.uniquindio.unieventos.documentos.TipoEvento;
+import co.edu.uniquindio.unieventos.documentos.*;
+import co.edu.uniquindio.unieventos.dto.evento.ItemEventoDTO;
 import co.edu.uniquindio.unieventos.dto.global.MensajeDTO;
+import co.edu.uniquindio.unieventos.servicios.interfaces.EventoServicio;
 import co.edu.uniquindio.unieventos.servicios.interfaces.PublicServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class PublicController {
 
     private final PublicServicio publicServicio;
+    private final EventoServicio eventoServicio;
 
     @GetMapping("/listar-ciudades")
     public ResponseEntity<MensajeDTO<List<Departamentos>>> listarCiudades(){
@@ -35,5 +36,20 @@ public class PublicController {
     @GetMapping("/listar-estado")
     public ResponseEntity<MensajeDTO<List<EstadoEvento>>> listarEstado(){
         return ResponseEntity.ok().body( new MensajeDTO<>(false, publicServicio.listarEstado()));
+    }
+    @GetMapping("/listar-estado-cupon")
+    public ResponseEntity<MensajeDTO<List<EstadoCupon>>> listarEstadoCupon(){
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, publicServicio.listarEstadoCupon()));
+    }
+
+    @GetMapping("/listar-tipo-cupon")
+    public ResponseEntity<MensajeDTO<List<TipoCupon>>> listarTipoCupon(){
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, publicServicio.listarTipoCupon()));
+    }
+
+    @GetMapping("/listar-eventos")
+    public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> listarEventos() {
+        List<ItemEventoDTO> lista = eventoServicio.listarEventos();
+        return ResponseEntity.ok(new MensajeDTO<>(false, lista));
     }
 }

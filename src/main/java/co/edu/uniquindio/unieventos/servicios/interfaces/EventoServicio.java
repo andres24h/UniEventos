@@ -18,6 +18,8 @@ public interface EventoServicio {
 
     List<ItemEventoDTO> listarEventos();
 
+    List<ItemEventoDTO> listarEventosActivos();
+
     boolean disponiblidad(DisponibilidadEventoDTO disponibilidadEventoDTO) throws Exception;
 
     List<ItemEventoDTO> filtrarEventos(FiltroEventoDTO filtroEventoDTO);

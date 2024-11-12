@@ -14,6 +14,6 @@ public record ActualizarCuponDTO(
         double descuento,
         LocalDateTime fechaVencimiento,
         List<String> beneficiarios,
-        EstadoCupon estadoCupon
+        String estadoCupon
 ) {
 }

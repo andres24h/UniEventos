@@ -122,6 +122,24 @@ public class EventoServicioImpl implements EventoServicio {
                 evento.getDireccion()
         )).toList();
     }
+    @Override
+    public List<ItemEventoDTO> listarEventosActivos() {
+        return eventoRepo.findAll().stream()
+                .filter(evento -> "ACTIVO".equals(evento.getEstado()))
+                .map(evento -> new ItemEventoDTO(
+                        evento.getId(),
+                        evento.getNombre(),
+                        evento.getDescripcion(),
+                        evento.getTipo(),
+                        evento.getEstado(),
+                        evento.getImagenPortada(),
+                        evento.getFecha(),
+                        evento.getDireccion()
+                ))
+                .toList();
+    }
+
+
 
     @Override
     public boolean disponiblidad(DisponibilidadEventoDTO disponibilidadEventoDTO) throws Exception {

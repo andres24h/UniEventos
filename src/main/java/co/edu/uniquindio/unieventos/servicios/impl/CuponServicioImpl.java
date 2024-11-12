@@ -5,15 +5,11 @@ import co.edu.uniquindio.unieventos.dto.cupon.*;
 import co.edu.uniquindio.unieventos.repositorios.CuentaRepo;
 import co.edu.uniquindio.unieventos.repositorios.CuponRepo;
 import co.edu.uniquindio.unieventos.servicios.interfaces.CuponServicio;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,11 +40,12 @@ public class CuponServicioImpl implements CuponServicio {
         Cupon cupon;
         cupon = new Cupon();
 
-        if (cuponDTO.tipo() == TipoCupon.UNICO) {
+        if (Objects.equals(cuponDTO.tipo(), TipoCupon.UNICO.toString())
+        ) {
             cupon.setCodigo(cuponDTO.codigo());
             cupon.setNombre(cuponDTO.nombre());
             cupon.setDescuento(cuponDTO.descuento());
-            cupon.setEstado(EstadoCupon.DISPONIBLE);
+            cupon.setEstado(EstadoCupon.DISPONIBLE.toString());
             cupon.setTipo(cuponDTO.tipo());
             cupon.setFechaVencimiento(cuponDTO.fechaVencimiento());
 
@@ -57,7 +54,7 @@ public class CuponServicioImpl implements CuponServicio {
             cupon.setCodigo(codigoIndividual);
             cupon.setNombre(cuponDTO.nombre());
             cupon.setDescuento(cuponDTO.descuento());
-            cupon.setEstado(EstadoCupon.DISPONIBLE);
+            cupon.setEstado(EstadoCupon.DISPONIBLE.toString());
             cupon.setTipo(cuponDTO.tipo());
             cupon.setFechaVencimiento(cuponDTO.fechaVencimiento());
             cupon.setBeneficiarios(cuponDTO.beneficiarios());
@@ -101,7 +98,7 @@ public class CuponServicioImpl implements CuponServicio {
             throw new Exception("El cupon no existe :) ");
         }
         Cupon cupon=cuponOptional.get();
-        cupon.setEstado(EstadoCupon.NO_DISPONIBLE);
+        cupon.setEstado(EstadoCupon.NO_DISPONIBLE.toString());
         cuponRepo.save(cupon);
 
     }
@@ -128,7 +125,7 @@ public class CuponServicioImpl implements CuponServicio {
         if(cupon.getTipo().equals(TipoCupon.UNICO)){
             List<String> beneficiarios = cupon.getBeneficiarios();
             beneficiarios.add(redimirCuponDTO.idCliente());
-            cupon.setEstado(EstadoCupon.NO_DISPONIBLE);
+            cupon.setEstado(EstadoCupon.NO_DISPONIBLE.toString());
             cuponRepo.save(cupon);
         }
         else{
@@ -153,7 +150,7 @@ public class CuponServicioImpl implements CuponServicio {
         }
         Cupon cupon = cuponOptional.get();
 
-        if(cupon.getEstado() == EstadoCupon.DISPONIBLE &&
+        if(Objects.equals(cupon.getEstado(), EstadoCupon.DISPONIBLE.toString()) &&
                 cupon.getFechaVencimiento().isAfter(LocalDateTime.now())){
             return true;
         }
@@ -163,12 +160,13 @@ public class CuponServicioImpl implements CuponServicio {
     @Override
     public List<ItemCuponDTO> listarCupones() {
         return cuponRepo.findAll().stream()
-                .filter(cupon -> cupon.getEstado() == EstadoCupon.DISPONIBLE
+                .filter(cupon -> Objects.equals(cupon.getEstado(), EstadoCupon.DISPONIBLE.toString())
                         && cupon.getFechaVencimiento().isAfter(LocalDateTime.now()))
                 .map(cupon -> new ItemCuponDTO(
                         cupon.getId(),
                         cupon.getCodigo(),
                         cupon.getNombre(),
+                        cupon.getEstado(),
                         cupon.getDescuento(),
                         cupon.getFechaVencimiento(),
                         cupon.getTipo()
@@ -178,14 +176,15 @@ public class CuponServicioImpl implements CuponServicio {
     @Override
     public List<ItemCuponDTO> listarCuponesCliente(ListarCupoDTO listarCupoDTO) {
         return cuponRepo.findAll().stream()
-                .filter(cupon -> cupon.getEstado() == EstadoCupon.DISPONIBLE
+                .filter(cupon -> Objects.equals(cupon.getEstado(), EstadoCupon.DISPONIBLE.toString())
                         && cupon.getFechaVencimiento().isAfter(LocalDateTime.now())
-                        && (cupon.getTipo() == TipoCupon.UNICO
-                        || (cupon.getTipo() == TipoCupon.INDIVIDUAL && cupon.getBeneficiarios().contains(listarCupoDTO.idCliente()))))
+                        && (Objects.equals(cupon.getTipo(), TipoCupon.UNICO.toString())
+                        || (Objects.equals(cupon.getTipo(), TipoCupon.INDIVIDUAL.toString()) && cupon.getBeneficiarios().contains(listarCupoDTO.idCliente()))))
                 .map(cupon -> new ItemCuponDTO(
                         cupon.getId(),
                         cupon.getCodigo(),
                         cupon.getNombre(),
+                        cupon.getEstado(),
                         cupon.getDescuento(),
                         cupon.getFechaVencimiento(),
                         cupon.getTipo()

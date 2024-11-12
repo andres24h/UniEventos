@@ -2,9 +2,7 @@ package co.edu.uniquindio.unieventos.servicios.interfaces;
 
 
 
-import co.edu.uniquindio.unieventos.documentos.Departamentos;
-import co.edu.uniquindio.unieventos.documentos.EstadoEvento;
-import co.edu.uniquindio.unieventos.documentos.TipoEvento;
+import co.edu.uniquindio.unieventos.documentos.*;
 
 import java.util.List;
 
@@ -15,5 +13,9 @@ public interface PublicServicio {
     List<TipoEvento> listarTipo();
 
     List<EstadoEvento> listarEstado();
+
+    List<EstadoCupon> listarEstadoCupon();
+
+    List<TipoCupon> listarTipoCupon();
 
 }

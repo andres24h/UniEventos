@@ -12,8 +12,6 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class CuponServicioTest {
                 25.5,
                 LocalDateTime.now().plusDays(20),
                 beneficiarios,
-                EstadoCupon.DISPONIBLE
+                EstadoCupon.DISPONIBLE.toString()
                 );
 
         assertDoesNotThrow(() -> {

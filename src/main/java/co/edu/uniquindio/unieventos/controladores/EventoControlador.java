@@ -17,33 +17,7 @@ import java.util.List;
 public class EventoControlador {
     private final EventoServicio eventoServicio;
 
-/**
- *
- * @param
- * @return
- * @throws Exception
 
-
-    @PostMapping("/crear-evento")
-    public ResponseEntity<MensajeDTO<String>> crearEvento(@Valid @RequestBody CrearEventoDTO crearEventoDTO) throws Exception {
-        String resultado = eventoServicio.crearEvento(crearEventoDTO);
-        return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
-    }
-
-    @PutMapping("/editar-evento")
-    public ResponseEntity<MensajeDTO<String>> editarEvento(@Valid @RequestBody EditarEventoDTO editarEventoDTO) throws Exception {
-        String resultado = eventoServicio.editarEvento(editarEventoDTO);
-        return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
-    }
-
-
-    @DeleteMapping("/eliminar-evento/{id}")
-    public ResponseEntity<MensajeDTO<String>> eliminarEvento(@PathVariable String id) throws Exception {
-        String resultado = eventoServicio.eliminarEvento(id);
-        return ResponseEntity.ok(new MensajeDTO<>(false, resultado));
-    }
-
- */
     @GetMapping("/obtener-evento/{id}")
     public ResponseEntity<MensajeDTO<InformacionEventoDTO>> obtenerInformacionEvento(@PathVariable String id) throws Exception {
         InformacionEventoDTO info = eventoServicio.obtenerInformacionEvento(id);
